@@ -7,11 +7,8 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <>
-      <main className={styles.main}>
-        <Image src={Logo} alt="Guessing Game Logo" className={styles.logo} />
-      </main>
-      <Footer />
-    </>
+    <div className={styles.page}>
+      <Image src={Logo} alt="Guessing Game Logo" className={styles.logo} />
+    </div>
   );
 }
