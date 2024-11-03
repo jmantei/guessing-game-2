@@ -1,8 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
 
-import Main from "@/layouts/Main";
-
 const inter = localFont({
   src: "../fonts/Inter-VariableFont_opsz,wght.ttf",
   variable: "--font-inter",
@@ -17,9 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
-        <Main centered>{children}</Main>
-      </body>
+      <body className={`${inter.className}`}>{children}</body>
     </html>
   );
 }
