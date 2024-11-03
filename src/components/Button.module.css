@@ -1,10 +1,10 @@
 .primary {
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 500;
   background-color: var(--blue);
   color: var(--white);
-  padding: 1rem 4rem;
+  padding: 1rem 2rem;
   border-radius: 1rem;
   border: 0.25rem transparent solid;
   cursor: pointer;
@@ -16,4 +16,10 @@
   background-color: var(--white);
   color: var(--blue);
   border-color: var(--blue);
+}
+
+@media screen and (min-width: 600px) {
+  .primary {
+    padding: 1rem 4rem;
+  }
 }
