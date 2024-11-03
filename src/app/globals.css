@@ -13,6 +13,10 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
 }
 
 * {

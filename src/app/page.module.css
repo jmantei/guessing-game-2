@@ -1,6 +1,12 @@
 .main {
+  padding: 3rem;
+
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  align-items: center;
+}
+
+.logo {
+  max-width: 40rem;
+  height: auto;
 }

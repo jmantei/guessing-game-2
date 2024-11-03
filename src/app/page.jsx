@@ -1,14 +1,17 @@
+import Image from "next/image";
+
+import Footer from "@/components/Footer";
+import Logo from "@/images/logo.png";
+
 import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <div className={styles.page}>
+    <>
       <main className={styles.main}>
-        <p>Guessing Game 2</p>
+        <Image src={Logo} alt="Guessing Game Logo" className={styles.logo} />
       </main>
-      <footer className={styles.footer}>
-        <p>Coded by Josh</p>
-      </footer>
-    </div>
+      <Footer />
+    </>
   );
 }
