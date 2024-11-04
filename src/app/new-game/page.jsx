@@ -14,14 +14,12 @@ function NewGame() {
       <div className={styles.page}>
         <Header text="Create New Game" />
         <form className={styles.form} action="">
-          <div className={styles.formControl}>
+          <div className={styles.selectControl}>
             <select name="gameType" id="gameType" required>
               <option value="">Select Length</option>
               <option value="full">Full Game</option>
               <option value="half">Half Game</option>
             </select>
-          </div>
-          <div className={styles.formControl}>
             <select name="numPlayers" id="numPlayers" required>
               <option value="">Select Players</option>
               <option value="2">2</option>
@@ -35,8 +33,8 @@ function NewGame() {
               <option value="10">10</option>
             </select>
           </div>
-          <div className={styles.formControl}>
-            <label htmlFor="player 1">Player names:</label>
+          <div className={styles.textControl}>
+            <label htmlFor="player1">Player names:</label>
             <input
               type="text"
               defaultValue="Player 1"
@@ -104,11 +102,11 @@ function NewGame() {
               id="player10"
             />
           </div>
-          <div className={styles.formControl}>
+          <div className={styles.textControl}>
             <label htmlFor="gameTitle">Game title:</label>
             <input
               type="text"
-              placeholder="Game title"
+              placeholder="Game title..."
               name="gameTitle"
               id="gameTitle"
             />
