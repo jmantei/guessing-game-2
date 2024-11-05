@@ -11,8 +11,6 @@
 }
 
 .form {
-  margin-bottom: 4rem;
-
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -70,4 +68,8 @@
   width: 100%;
   max-width: 25rem;
   border: 0.25rem var(--black) solid;
+}
+
+.startButton {
+  margin-top: 4rem;
 }

@@ -12,6 +12,7 @@ function Button({
   onclick = () => {
     console.log("Clicked");
   },
+  buttonType = "",
 }) {
   return navlink ? (
     <Link
@@ -28,6 +29,7 @@ function Button({
         type === "secondary" ? styles.secondary : ""
       } ${className}`}
       onClick={onclick}
+      type={buttonType}
     >
       {text}
     </button>

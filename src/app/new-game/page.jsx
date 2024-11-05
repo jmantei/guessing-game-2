@@ -9,18 +9,33 @@ import { useState } from "react";
 
 function NewGame() {
   const [numOfPlayers, setNumOfPlayers] = useState(0);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    age: "",
+  });
+
+  function handlePlayerChange(e) {
+    setNumOfPlayers(Number(e.target.value));
+  }
+
   return (
     <Main>
       <div className={styles.page}>
         <Header text="Create New Game" />
-        <form className={styles.form} action="">
+        <form className={styles.form} action="/start-game">
           <div className={styles.selectControl}>
-            <select name="gameType" id="gameType" required>
+            <select name="game-type" id="game-type" required>
               <option value="">Select Length</option>
               <option value="full">Full Game</option>
               <option value="half">Half Game</option>
             </select>
-            <select name="numPlayers" id="numPlayers" required>
+            <select
+              name="num-players"
+              id="num-players"
+              required
+              onChange={handlePlayerChange}
+            >
               <option value="">Select Players</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -34,86 +49,36 @@ function NewGame() {
             </select>
           </div>
           <div className={styles.textControl}>
-            <label htmlFor="player1">Player names:</label>
-            <input
-              type="text"
-              defaultValue="Player 1"
-              name="player1"
-              id="player1"
-            />
-            <input
-              type="text"
-              defaultValue="Player 2"
-              name="player2"
-              id="player2"
-            />
-            <input
-              type="text"
-              defaultValue="Player 3"
-              name="player3"
-              id="player3"
-            />
-            <input
-              type="text"
-              defaultValue="Player 3"
-              name="player3"
-              id="player3"
-            />
-            <input
-              type="text"
-              defaultValue="Player 4"
-              name="player4"
-              id="player4"
-            />
-            <input
-              type="text"
-              defaultValue="Player 5"
-              name="player5"
-              id="player5"
-            />
-            <input
-              type="text"
-              defaultValue="Player 6"
-              name="player6"
-              id="player6"
-            />
-            <input
-              type="text"
-              defaultValue="Player 7"
-              name="player7"
-              id="player7"
-            />
-            <input
-              type="text"
-              defaultValue="Player 8"
-              name="player8"
-              id="player8"
-            />
-            <input
-              type="text"
-              defaultValue="Player 9"
-              name="player9"
-              id="player9"
-            />
-            <input
-              type="text"
-              defaultValue="Player 10"
-              name="player10"
-              id="player10"
-            />
+            {numOfPlayers ? (
+              <label htmlFor="player-1">Player names:</label>
+            ) : null}
+            {Array.from(Array(numOfPlayers).keys()).map((n) => (
+              <input
+                key={n}
+                type="text"
+                defaultValue={`Player ${n + 1}`}
+                name={`player-${n + 1}`}
+                id={`player-${n + 1}`}
+              />
+            ))}
           </div>
           <div className={styles.textControl}>
-            <label htmlFor="gameTitle">Game title:</label>
+            <label htmlFor="game-title">Game title:</label>
             <input
               type="text"
               placeholder="Game title..."
               name="gameTitle"
               id="gameTitle"
+              required
             />
           </div>
+          <Button
+            buttonType="submit"
+            text="Start Game"
+            className={styles.startButton}
+          />
+          <Button type="secondary" navlink href="/" text="Back to Main Menu" />
         </form>
-        <Button navlink href="/start-game" text="Start Game" />
-        <Button type="secondary" navlink href="/" text="Back to Main Menu" />
       </div>
     </Main>
   );
