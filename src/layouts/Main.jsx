@@ -15,6 +15,8 @@ function Main({ children, centered = false, noLocalStorageCheck = false }) {
     if (!noLocalStorageCheck) {
       if (!LocalStorage.exists()) {
         router.push("/");
+      } else {
+        LocalStorage.init();
       }
     }
   }, [noLocalStorageCheck, router]);
