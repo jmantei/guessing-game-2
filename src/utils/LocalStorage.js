@@ -4,7 +4,7 @@
  */
 export function exists() {
   // Check if we are in the browser environment and if localStorage is available
-  if (typeof window !== "undefined" && window.localStorage) {
+  if (window.localStorage) {
     try {
       // Try setting and getting a test item to ensure localStorage is working
       const testKey = "test";
@@ -90,6 +90,7 @@ export function addGameData(
 export function gameExists(gameTitle) {
   const appData = localStorage.getItem("app");
   const gameData = localStorage.getItem(gameTitle);
+  if (!gameData || !appData) return false;
   if (!gameData && !appData.games.includes(gameTitle)) return false;
   return true;
 }
