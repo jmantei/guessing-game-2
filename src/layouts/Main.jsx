@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Footer from "@/components/Footer";
-import { exists } from "@/utils/LocalStorage";
+import LocalStorage from "@/utils/LocalStorage";
 
 import styles from "./Main.module.css";
 
@@ -13,7 +13,7 @@ function Main({ children, centered = false, noLocalStorageCheck = false }) {
 
   useEffect(() => {
     if (!noLocalStorageCheck) {
-      if (!exists()) {
+      if (!LocalStorage.exists()) {
         router.push("/");
       }
     }

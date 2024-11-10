@@ -2,7 +2,7 @@
  * check if local storage is available
  * @returns bool - true if local storage is available, false if not
  */
-export function exists() {
+function exists() {
   // Check if we are in the browser environment and if localStorage is available
   if (window.localStorage) {
     try {
@@ -22,7 +22,7 @@ export function exists() {
 /**
  * create app object if it doesn't exists
  */
-export function init() {
+function init() {
   const appData = JSON.parse(localStorage.getItem("app"));
   if (!appData) {
     localStorage.setItem(
@@ -38,7 +38,7 @@ export function init() {
  * Save game title to app object in local storage
  * @param {string} gameTitle - title of game to be saved
  */
-export function addGameTitle(gameTitle) {
+function addGameTitle(gameTitle) {
   const appData = JSON.parse(localStorage.getItem("app"));
   const updatedAppData = { ...appData, games: [...app.games, gameTitle] };
   localStorage.setItem("app", JSON.stringify(updatedAppData));
@@ -58,7 +58,7 @@ export function addGameTitle(gameTitle) {
  * @param {string} player7 - name of player 7
  * @param {string} player8 - name of player 8
  */
-export function addGameData(
+function addGameData(
   gameTitle,
   gameType,
   numPlayers,
@@ -87,10 +87,13 @@ export function addGameData(
  * @param {string} gameTitle - title of the game
  * @returns bool - true if it does exist, false if not
  */
-export function gameExists(gameTitle) {
+function gameExists(gameTitle) {
   const appData = localStorage.getItem("app");
   const gameData = localStorage.getItem(gameTitle);
   if (!gameData || !appData) return false;
   if (!gameData && !appData.games.includes(gameTitle)) return false;
   return true;
 }
+
+const LocalStorage = { exists, init, addGameTitle, addGameData, gameExists };
+export default LocalStorage;

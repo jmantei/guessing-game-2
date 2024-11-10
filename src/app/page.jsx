@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-import { exists, init } from "@/utils/LocalStorage";
+import LocalStorage from "@/utils/LocalStorage";
 import Logo from "@/images/logo.png";
 import Button from "@/components/Button";
 import Main from "@/layouts/Main";
@@ -10,9 +10,11 @@ import Main from "@/layouts/Main";
 import styles from "./page.module.css";
 
 export default function Home() {
-  const [localStorageExists, setLocalStorageExists] = useState(exists());
+  const [localStorageExists, setLocalStorageExists] = useState(
+    LocalStorage.exists()
+  );
   if (localStorageExists) {
-    init();
+    LocalStorage.init();
   }
 
   return (
