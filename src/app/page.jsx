@@ -10,9 +10,7 @@ import Main from "@/layouts/Main";
 import styles from "./page.module.css";
 
 export default function Home() {
-  const [localStorageExists, setLocalStorageExists] = useState(
-    LocalStorage.exists()
-  );
+  const [localStorageExists, _] = useState(LocalStorage.exists());
   if (localStorageExists) {
     LocalStorage.init();
   }
