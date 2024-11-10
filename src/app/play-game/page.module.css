@@ -1,0 +1,71 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.tableContainer {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+  margin-bottom: 4rem;
+}
+
+.table {
+  width: 100%;
+  max-width: 100rem;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: var(--grey);
+  color: var(--white);
+}
+
+.table th,
+.table td {
+  border: 2px solid var(--white);
+  padding: 1rem;
+}
+
+.th {
+  background: hsl(0, 0%, 0%, 0.5);
+}
+
+.table th[data-cell="name"],
+.table td[data-cell="name"] {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: var(--black);
+  border-right: none;
+}
+
+.table th[data-cell="name"]::after,
+.table td[data-cell="name"]::after {
+  content: "";
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--white);
+}
+
+.table th[data-cell="round-1"],
+.table td[data-cell="round-1"] {
+  border-left: none;
+}
+
+.table thead {
+  background-color: var(--black);
+}
+
+.table tr:nth-of-type(2n) {
+  background: hsl(0, 0%, 0%, 0.3);
+}
+
+.cellContainer {
+  display: flex;
+  justify-content: space-around;
+}
