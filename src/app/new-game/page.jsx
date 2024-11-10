@@ -67,8 +67,8 @@ function NewGame() {
             <input
               type="text"
               placeholder="Game title..."
-              name="gameTitle"
-              id="gameTitle"
+              name="game-title"
+              id="game-title"
               required
             />
           </div>
