@@ -32,8 +32,6 @@ export function validNewGameForm(
   // initialize error array
   const errors = [];
   // Validate game title:
-  // reserved titles
-  if (gameTitle == "app" || gameTitle == "test") errors.push("title-reserved");
   // cannot be empty
   if (gameTitle == "") errors.push("title-none");
   // must be alphanumeric

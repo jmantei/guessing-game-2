@@ -40,7 +40,10 @@ function init() {
  */
 function addGameTitle(gameTitle) {
   const appData = JSON.parse(localStorage.getItem("app"));
-  const updatedAppData = { ...appData, games: [...appData.games, gameTitle] };
+  const updatedAppData = {
+    ...appData,
+    games: [...appData.games, gameTitle],
+  };
   localStorage.setItem("app", JSON.stringify(updatedAppData));
 }
 
@@ -79,7 +82,7 @@ function addGameData(
     round: 0,
     game: {},
   };
-  localStorage.setItem(gameTitle, JSON.stringify(gameData));
+  localStorage.setItem(`game - ${gameTitle}`, JSON.stringify(gameData));
 }
 
 /**
@@ -89,7 +92,7 @@ function addGameData(
  */
 function gameExists(gameTitle) {
   const appData = localStorage.getItem("app");
-  const gameData = localStorage.getItem(gameTitle);
+  const gameData = localStorage.getItem(`game - ${gameTitle}`);
   if (!gameData || !appData) return false;
   if (!gameData && !appData.games.includes(gameTitle)) return false;
   return true;

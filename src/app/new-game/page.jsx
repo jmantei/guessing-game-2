@@ -102,7 +102,7 @@ function NewGame() {
         );
 
         // redirect to play game page
-        router.push(`/play-game?game=${gameTitle.replace(/ /g, "+")}`);
+        router.push(`/play-game?game=${gameTitle.replace(/\s+/g, "+")}`);
       }
     } else {
       // form data invalid
