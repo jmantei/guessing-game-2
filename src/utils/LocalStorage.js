@@ -40,7 +40,7 @@ function init() {
  */
 function addGameTitle(gameTitle) {
   const appData = JSON.parse(localStorage.getItem("app"));
-  const updatedAppData = { ...appData, games: [...app.games, gameTitle] };
+  const updatedAppData = { ...appData, games: [...appData.games, gameTitle] };
   localStorage.setItem("app", JSON.stringify(updatedAppData));
 }
 

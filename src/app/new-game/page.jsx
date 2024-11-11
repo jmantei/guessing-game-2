@@ -1,6 +1,8 @@
 "use client";
+import { useRouter } from "next/navigation";
 
 import { validNewGameForm } from "@/utils/Validation";
+import LocalStorage from "@/utils/LocalStorage";
 
 import Main from "@/layouts/Main";
 import Header from "@/components/Header";
@@ -10,6 +12,7 @@ import styles from "./page.module.css";
 import { useState } from "react";
 
 function NewGame() {
+  const router = useRouter();
   const [numOfPlayers, setNumOfPlayers] = useState(0);
 
   function handlePlayerChange(e) {
@@ -77,8 +80,32 @@ function NewGame() {
       player8Name
     );
     if (formErrors.length == 0) {
-      console.log("VALID");
+      // if no errors, check if game exists
+      if (LocalStorage.gameExists(gameTitle)) {
+        // game title already exists
+        console.log("game title already exists");
+      } else {
+        // add game to localstorage
+        LocalStorage.addGameTitle(gameTitle);
+        LocalStorage.addGameData(
+          gameTitle,
+          gameType,
+          numPlayers,
+          player1Name,
+          player2Name,
+          player3Name,
+          player4Name,
+          player5Name,
+          player6Name,
+          player7Name,
+          player8Name
+        );
+
+        // redirect to play game page
+        router.push(`/play-game?game=${gameTitle.replace(/ /g, "+")}`);
+      }
     } else {
+      // form data invalid
       console.log("INVALID");
       console.log(formErrors);
     }
