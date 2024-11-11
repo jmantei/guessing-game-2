@@ -9,21 +9,42 @@ import { useState } from "react";
 
 function NewGame() {
   const [numOfPlayers, setNumOfPlayers] = useState(0);
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    age: "",
-  });
 
   function handlePlayerChange(e) {
     setNumOfPlayers(Number(e.target.value));
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+
+    // get data from form
+    const formData = new FormData(e.target);
+    const gameType = formData["game-type"];
+    const numPlayers = formData["num-players"];
+    const gameTitle = formData["game-title"];
+    const player1Name = formData["player-1"];
+    const player2Name = formData["player-2"];
+    const player3Name = formData["player-3"];
+    const player4Name = formData["player-4"];
+    const player5Name = formData["player-5"];
+    const player6Name = formData["player-6"];
+    const player7Name = formData["player-7"];
+    const player8Name = formData["player-8"];
+
+    // validate form data
+
+    // save form data
+
+    // redirect to play game page
+
+    console.log(formData);
   }
 
   return (
     <Main>
       <div className={styles.page}>
         <Header text="Create New Game" />
-        <form className={styles.form} action="/start-game">
+        <form className={styles.form} onSubmit={handleFormSubmit}>
           <div className={styles.selectControl}>
             <select name="game-type" id="game-type" required>
               <option value="">Select Length</option>
@@ -44,8 +65,6 @@ function NewGame() {
               <option value="6">6</option>
               <option value="7">7</option>
               <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
             </select>
           </div>
           <div className={styles.textControl}>
