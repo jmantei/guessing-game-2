@@ -1,5 +1,7 @@
 "use client";
 
+import { validNewGameForm } from "@/utils/Validation";
+
 import Main from "@/layouts/Main";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
@@ -18,26 +20,72 @@ function NewGame() {
     e.preventDefault();
 
     // get data from form
-    const formData = new FormData(e.target);
+    const form = new FormData(e.target);
+    const formData = {};
+    for (const [key, value] of form) {
+      formData[`${key}`] = `${value}`;
+    }
+    console.log(formData);
     const gameType = formData["game-type"];
     const numPlayers = formData["num-players"];
-    const gameTitle = formData["game-title"];
-    const player1Name = formData["player-1"];
-    const player2Name = formData["player-2"];
-    const player3Name = formData["player-3"];
-    const player4Name = formData["player-4"];
-    const player5Name = formData["player-5"];
-    const player6Name = formData["player-6"];
-    const player7Name = formData["player-7"];
-    const player8Name = formData["player-8"];
+    const gameTitle = formData["game-title"].trim();
+    const player1Name =
+      typeof formData["player-1"] !== "undefined"
+        ? formData["player-1"].trim()
+        : "";
+    const player2Name =
+      typeof formData["player-2"] !== "undefined"
+        ? formData["player-2"].trim()
+        : "";
+    const player3Name =
+      typeof formData["player-3"] !== "undefined"
+        ? formData["player-3"].trim()
+        : "";
+    const player4Name =
+      typeof formData["player-4"] !== "undefined"
+        ? formData["player-4"].trim()
+        : "";
+    const player5Name =
+      typeof formData["player-5"] !== "undefined"
+        ? formData["player-5"].trim()
+        : "";
+    const player6Name =
+      typeof formData["player-6"] !== "undefined"
+        ? formData["player-6"].trim()
+        : "";
+    const player7Name =
+      typeof formData["player-7"] !== "undefined"
+        ? formData["player-7"].trim()
+        : "";
+    const player8Name =
+      typeof formData["player-8"] !== "undefined"
+        ? formData["player-8"].trim()
+        : "";
 
     // validate form data
+    const formErrors = validNewGameForm(
+      gameType,
+      numPlayers,
+      gameTitle,
+      player1Name,
+      player2Name,
+      player3Name,
+      player4Name,
+      player5Name,
+      player6Name,
+      player7Name,
+      player8Name
+    );
+    if (formErrors.length == 0) {
+      console.log("VALID");
+    } else {
+      console.log("INVALID");
+      console.log(formErrors);
+    }
 
     // save form data
 
     // redirect to play game page
-
-    console.log(formData);
   }
 
   return (
@@ -46,7 +94,7 @@ function NewGame() {
         <Header text="Create New Game" />
         <form className={styles.form} onSubmit={handleFormSubmit}>
           <div className={styles.selectControl}>
-            <select name="game-type" id="game-type" required>
+            <select name="game-type" id="game-type">
               <option value="">Select Length</option>
               <option value="full">Full Game</option>
               <option value="half">Half Game</option>
@@ -54,7 +102,6 @@ function NewGame() {
             <select
               name="num-players"
               id="num-players"
-              required
               onChange={handlePlayerChange}
             >
               <option value="">Select Players</option>
@@ -88,7 +135,6 @@ function NewGame() {
               placeholder="Game title..."
               name="game-title"
               id="game-title"
-              required
             />
           </div>
           <Button
