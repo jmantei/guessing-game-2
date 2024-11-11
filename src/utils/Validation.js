@@ -1,5 +1,21 @@
+// regex that allows alphanumeric characters with spaces as well as empty strings
 const ALPHA_NUM_REGEX = /^[a-z0-9 ]*$/i;
 
+/**
+ * Check that all form data is valid
+ * @param {string} gameType - type of game
+ * @param {string} numPlayers - number of players
+ * @param {string} gameTitle - title of game
+ * @param {string} player1Name - name of player 1
+ * @param {string} player2Name - name of player 2
+ * @param {string} player3Name - name of player 3
+ * @param {string} player4Name - name of player 4
+ * @param {string} player5Name - name of player 5
+ * @param {string} player6Name - name of player 6
+ * @param {string} player7Name - name of player 7
+ * @param {string} player8Name - name of player 8
+ * @returns array of errors, empty array if there are no errors
+ */
 export function validNewGameForm(
   gameType,
   numPlayers,
@@ -45,6 +61,13 @@ export function validNewGameForm(
   return errors.flat();
 }
 
+/**
+ * Validate individual player names
+ * @param {string} name - name of player
+ * @param {number} number - which player is it (numbers 1 to 8)
+ * @param {string} numPlayers - how many players total
+ * @returns array of errors, empty array if there are no errors
+ */
 function validatePlayerName(name, number, numPlayers) {
   const errors = [];
   if (number <= numPlayers) {
