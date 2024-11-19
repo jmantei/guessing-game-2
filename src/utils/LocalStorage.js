@@ -98,5 +98,25 @@ function gameExists(gameTitle) {
   return true;
 }
 
-const LocalStorage = { exists, init, addGameTitle, addGameData, gameExists };
+/**
+ * Get the game data from local storage based on game title
+ * @param {string} gameTitle
+ * @returns Returns object of gameData or null of no matching game is found.
+ */
+function getGameData(gameTitle) {
+  // check if game exists;
+  if (!gameExists(gameTitle)) return null;
+
+  const gameData = localStorage.getItem(`game - ${gameTitle}`);
+  return JSON.parse(gameData);
+}
+
+const LocalStorage = {
+  exists,
+  init,
+  addGameTitle,
+  addGameData,
+  gameExists,
+  getGameData,
+};
 export default LocalStorage;
