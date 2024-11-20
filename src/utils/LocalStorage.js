@@ -78,7 +78,16 @@ function addGameData(
   const gameData = {
     type: gameType,
     numberOfPlayer: numPlayers,
-    playerNames: [],
+    playerNames: [
+      player1,
+      player2,
+      player3,
+      player4,
+      player5,
+      player6,
+      player7,
+      player8,
+    ],
     round: 0,
     game: {},
   };

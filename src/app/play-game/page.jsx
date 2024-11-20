@@ -60,7 +60,7 @@ function Page() {
                   {Array.from({ length: tablecols.length + 1 }, (_, j) => (
                     <td key={j} data-cell={j == 0 ? "name" : `round-${j}`}>
                       {j == 0 ? (
-                        `Player-${i}`
+                        gameData.playerNames[i]
                       ) : (
                         <div className={styles.cellContainer}>
                           <span>0</span>
