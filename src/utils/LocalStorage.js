@@ -120,6 +120,15 @@ function getGameData(gameTitle) {
   return JSON.parse(gameData);
 }
 
+/**
+ * Get game titles from local storage
+ * @returns returns the app data object or null if none exists in local storage
+ */
+function getAppData() {
+  const appData = localStorage.getItem("app");
+  return appData ? JSON.parse(appData) : null;
+}
+
 const LocalStorage = {
   exists,
   init,
@@ -127,5 +136,6 @@ const LocalStorage = {
   addGameData,
   gameExists,
   getGameData,
+  getAppData,
 };
 export default LocalStorage;
