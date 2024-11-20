@@ -75,7 +75,7 @@ function Page() {
           </table>
         </div>
         <Button text="Advance to Next Round" />
-        <Button type="secondary" text="Save and Exit" />
+        <Button type="secondary" text="Save and Exit" navlink href="/" />
       </div>
     </Main>
   );

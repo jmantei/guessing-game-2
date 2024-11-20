@@ -25,7 +25,7 @@ function Page() {
                   <Button
                     text="Load Game"
                     navlink
-                    href={`/play-game?game=${game.replace(/ /g, "+")}`}
+                    href={`/play?game=${game.replace(/ /g, "+")}`}
                   />
                 </li>
               ))}

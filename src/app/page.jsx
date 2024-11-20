@@ -26,7 +26,7 @@ export default function Home() {
               className={styles.logo}
             />
             <div className={styles.buttonContainer}>
-              <Button navlink href="/new-game" text="New Game" />
+              <Button navlink href="/new" text="New Game" />
               <Button navlink href="/load" text="Load Game" />
               <Button type="secondary" navlink href="/rules" text="Rules" />
             </div>
