@@ -30,7 +30,7 @@ function NewGame() {
     }
     console.log(formData);
     const gameType = formData["game-type"];
-    const numPlayers = formData["num-players"];
+    const numPlayers = Number(formData["num-players"]);
     const gameTitle = formData["game-title"].trim();
     const player1Name =
       typeof formData["player-1"] !== "undefined"
