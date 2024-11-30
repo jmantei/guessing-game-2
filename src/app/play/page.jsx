@@ -6,6 +6,7 @@ import { useLocalStorageState } from "../../hooks/useLocalStorageState";
 import Main from "@/layouts/Main";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
+import RoundInfo from "@/components/RoundInfo";
 
 import LocalStorage from "@/utils/LocalStorage";
 import styles from "./page.module.css";
@@ -95,7 +96,12 @@ function Page() {
           />
         ) : null}
         {/* guesses */}
-        {gameState.state == "guesses" ? <p>Guesses</p> : null}
+        {gameState.state == "guesses" ? (
+          <RoundInfo
+            round={gameState.round}
+            cards={tablecols[gameState.round - 1]}
+          />
+        ) : null}
         <Button type="secondary" text="Save and Exit" navlink href="/" />
       </div>
     </Main>
