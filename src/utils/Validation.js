@@ -37,6 +37,8 @@ export function validNewGameForm(
   // must be alphanumeric
   const regex = ALPHA_NUM_REGEX;
   if (!regex.test(gameTitle)) errors.push("title-alphanum");
+  // cannot be too long
+  if (gameTitle.length > 25) errors.push("title-length");
 
   // validate number of Players:
   // cannot be empty
@@ -56,6 +58,26 @@ export function validNewGameForm(
   errors.push(validatePlayerName(player7Name, 7, numPlayers));
   errors.push(validatePlayerName(player8Name, 8, numPlayers));
 
+  // check for player name duplicates
+  const allPlayerNames = [
+    player1Name,
+    player2Name,
+    player3Name,
+    player4Name,
+    player5Name,
+    player6Name,
+    player7Name,
+    player8Name,
+  ];
+  const playerNameArr = [];
+  for (let i = 1; i <= numPlayers; i++) {
+    playerNameArr.push(allPlayerNames[i - 1]);
+  }
+  const playerNameSet = [...new Set(playerNameArr)];
+  if (playerNameArr.length !== playerNameSet.length) {
+    errors.push("unique-names");
+  }
+
   return errors.flat();
 }
 
@@ -74,6 +96,8 @@ function validatePlayerName(name, number, numPlayers) {
     // must be alphanumeric
     const regex = ALPHA_NUM_REGEX;
     if (!regex.test(name)) errors.push(`player${number}Name-alphanum`);
+    // cannot be too long
+    if (name.length > 25) errors.push(`player${number}Name-length`);
   }
   return errors;
 }
