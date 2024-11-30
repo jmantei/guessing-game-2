@@ -2,17 +2,22 @@
 
 import { useSearchParams, redirect } from "next/navigation";
 import { useLocalStorageState } from "../../hooks/useLocalStorageState";
+import { useState } from "react";
 
 import Main from "@/layouts/Main";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
 import RoundInfo from "@/components/RoundInfo";
 import SetsInput from "@/components/SetsInput";
+import ExitModal from "@/components/ExitModal";
 
 import LocalStorage from "@/utils/LocalStorage";
 import styles from "./page.module.css";
 
 function Page() {
+  // modal state for returning to main menu
+  const [exitModalOpen, setExitModalOpen] = useState(false);
+
   const searchParams = useSearchParams();
 
   // get game title from url
@@ -120,8 +125,17 @@ function Page() {
             />
           </>
         ) : null}
-        <Button type="secondary" text="Save and Exit" navlink href="/" />
+        <Button
+          type="secondary"
+          text="Save and Exit"
+          onClick={() => {
+            setExitModalOpen(true);
+          }}
+        />
       </div>
+      {exitModalOpen ? (
+        <ExitModal onModalClose={() => setExitModalOpen(false)} />
+      ) : null}
     </Main>
   );
 }

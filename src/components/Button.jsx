@@ -9,7 +9,7 @@ function Button({
   href = "/",
   text = "click here",
   className = "",
-  onclick = () => {
+  onClick = () => {
     console.log("Clicked");
   },
   buttonType = "",
@@ -28,7 +28,7 @@ function Button({
       className={`${styles.primary} ${
         type === "secondary" ? styles.secondary : ""
       } ${className}`}
-      onClick={onclick}
+      onClick={onClick}
       type={buttonType}
     >
       {text}
