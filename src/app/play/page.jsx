@@ -7,6 +7,7 @@ import Main from "@/layouts/Main";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
 import RoundInfo from "@/components/RoundInfo";
+import SetsInput from "@/components/SetsInput";
 
 import LocalStorage from "@/utils/LocalStorage";
 import styles from "./page.module.css";
@@ -97,10 +98,27 @@ function Page() {
         ) : null}
         {/* guesses */}
         {gameState.state == "guesses" ? (
-          <RoundInfo
-            round={gameState.round}
-            cards={tablecols[gameState.round - 1]}
-          />
+          <>
+            <RoundInfo
+              round={gameState.round}
+              cards={tablecols[gameState.round - 1]}
+            />
+            <div className={styles.inputBox}>
+              {Array.from(Array(gameState.numberOfPlayer).keys()).map((n) => (
+                <SetsInput key={n} playerName={gameState.playerNames[n]} />
+              ))}
+            </div>
+            <Button
+              text="Submit Guesses"
+              onclick={() =>
+                setGameState((prev) => ({
+                  ...prev,
+                  state: "round-play",
+                  // logic for saving guesses goes here
+                }))
+              }
+            />
+          </>
         ) : null}
         <Button type="secondary" text="Save and Exit" navlink href="/" />
       </div>
