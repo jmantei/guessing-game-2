@@ -81,14 +81,21 @@ function Page() {
             </tbody>
           </table>
         </div>
+        {/* round start */}
         {gameState.state == "round-start" ? (
           <Button
             text="Advance to Next Round"
             onclick={() =>
-              setGameState((prev) => ({ ...prev, state: "guesses" }))
+              setGameState((prev) => ({
+                ...prev,
+                state: "guesses",
+                round: ++prev.round,
+              }))
             }
           />
         ) : null}
+        {/* guesses */}
+        {gameState.state == "guesses" ? <p>Guesses</p> : null}
         <Button type="secondary" text="Save and Exit" navlink href="/" />
       </div>
     </Main>
