@@ -92,7 +92,7 @@ function Page() {
         {gameState.state == "round-start" ? (
           <Button
             text="Advance to Next Round"
-            onclick={() =>
+            onClick={() =>
               setGameState((prev) => ({
                 ...prev,
                 state: "guesses",
@@ -115,7 +115,7 @@ function Page() {
             </div>
             <Button
               text="Submit Guesses"
-              onclick={() =>
+              onClick={() =>
                 setGameState((prev) => ({
                   ...prev,
                   state: "round-play",
