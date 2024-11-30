@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams, redirect } from "next/navigation";
+import { useLocalStorageState } from "../../hooks/useLocalStorageState";
 
 import Main from "@/layouts/Main";
 import Header from "@/components/Header";
@@ -23,9 +24,15 @@ function Page() {
   const gameData = LocalStorage.getGameData(gameTitle);
   console.log(gameData);
 
+  // sync the gameState on the page to the gameData in local storage
+  const [gameState, setGameState] = useLocalStorageState(
+    `game - ${gameTitle}`,
+    gameData
+  );
+
   // set number of columns based on gameType
   let tablecols;
-  switch (gameData.type) {
+  switch (gameState.type) {
     case "full":
       tablecols = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       break;
@@ -54,13 +61,13 @@ function Page() {
             </thead>
             <tbody>
               {/* Display table body rows */}
-              {Array.from({ length: gameData.numberOfPlayer }, (_, i) => (
+              {Array.from({ length: gameState.numberOfPlayer }, (_, i) => (
                 <tr key={`row-${i + 1}`}>
                   {/* Display table cells */}
                   {Array.from({ length: tablecols.length + 1 }, (_, j) => (
                     <td key={j} data-cell={j == 0 ? "name" : `round-${j}`}>
                       {j == 0 ? (
-                        gameData.playerNames[i]
+                        gameState.playerNames[i]
                       ) : (
                         <div className={styles.cellContainer}>
                           <span>0</span>
@@ -74,7 +81,14 @@ function Page() {
             </tbody>
           </table>
         </div>
-        <Button text="Advance to Next Round" />
+        {gameState.state == "round-start" ? (
+          <Button
+            text="Advance to Next Round"
+            onclick={() =>
+              setGameState((prev) => ({ ...prev, state: "guesses" }))
+            }
+          />
+        ) : null}
         <Button type="secondary" text="Save and Exit" navlink href="/" />
       </div>
     </Main>

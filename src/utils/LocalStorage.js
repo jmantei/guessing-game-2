@@ -89,7 +89,7 @@ function addGameData(
       player8,
     ],
     round: 0,
-    game: {},
+    state: "round-start", // round-start, guesses, sets-won,
   };
   localStorage.setItem(`game - ${gameTitle}`, JSON.stringify(gameData));
 }
