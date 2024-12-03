@@ -12,11 +12,24 @@ import SetsInput from "@/components/SetsInput";
 import ExitModal from "@/components/ExitModal";
 
 import LocalStorage from "@/utils/LocalStorage";
+import { validateSetInput } from "@/utils/Validation";
 import styles from "./page.module.css";
 
 function Page() {
   // modal state for returning to main menu
   const [exitModalOpen, setExitModalOpen] = useState(false);
+  // initialize input error array
+  const [setInputErrors, setSetInputErrors] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
+  const validInputs = setInputErrors.join("").length === 0;
 
   const searchParams = useSearchParams();
 
@@ -133,21 +146,47 @@ function Page() {
                     (n) => (
                       <SetsInput
                         key={n}
+                        playerNumber={n + 1}
                         playerName={gameState.playerNames[n]}
+                        showError={setInputErrors[n] !== ""}
                         guessOnly
                       />
                     )
                   )}
                 </div>
+                {/* error output */}
+                <p>{validInputs ? "" : "Input Errors"}</p>
                 <Button
                   text="Submit Guesses"
-                  onClick={() =>
-                    setGameState((prev) => ({
-                      ...prev,
-                      state: "sets-won",
-                      // logic for saving guesses goes here
-                    }))
-                  }
+                  onClick={(e) => {
+                    // get player guesses
+                    const playerGuesses = [];
+                    e.target.previousSibling.previousSibling.childNodes.forEach(
+                      (inputElement) => {
+                        playerGuesses.push(inputElement.childNodes[1].value);
+                      }
+                    );
+                    console.log(playerGuesses);
+
+                    // validate player guesses
+                    const validationArray = validateSetInput(
+                      false,
+                      0,
+                      ...playerGuesses
+                    );
+                    console.log(validationArray);
+
+                    // update errors on page state
+                    setSetInputErrors(validationArray);
+
+                    // submit guesses if inputs are valid
+                    if (validationArray.join("").length === 0)
+                      setGameState((prev) => ({
+                        ...prev,
+                        state: "sets-won",
+                        // logic for saving guesses goes here
+                      }));
+                  }}
                 />
               </>
             ) : null}
@@ -163,20 +202,46 @@ function Page() {
                     (n) => (
                       <SetsInput
                         key={n}
+                        playerNumber={n + 1}
                         playerName={gameState.playerNames[n]}
+                        showError={setInputErrors[n] !== ""}
                       />
                     )
                   )}
                 </div>
+                {/* error output */}
+                <p>{validInputs ? "" : "Input Errors"}</p>
                 <Button
                   text="Submit Sets Won"
-                  onClick={() =>
-                    setGameState((prev) => ({
-                      ...prev,
-                      state: "start-round",
-                      // logic for saving sets won goes here
-                    }))
-                  }
+                  onClick={(e) => {
+                    // get player guesses
+                    const playerGuesses = [];
+                    e.target.previousSibling.previousSibling.childNodes.forEach(
+                      (inputElement) => {
+                        playerGuesses.push(inputElement.childNodes[1].value);
+                      }
+                    );
+                    console.log(playerGuesses);
+
+                    // validate player guesses
+                    const validationArray = validateSetInput(
+                      true,
+                      Number(tablecols[gameState.round - 1]),
+                      ...playerGuesses
+                    );
+                    console.log(validationArray);
+
+                    // update errors on page state
+                    setSetInputErrors(validationArray);
+
+                    // submit guesses if inputs are valid
+                    if (validationArray.join("").length === 0)
+                      setGameState((prev) => ({
+                        ...prev,
+                        state: "start-round",
+                        // logic for saving sets won goes here
+                      }));
+                  }}
                 />
               </>
             ) : null}

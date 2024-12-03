@@ -27,3 +27,7 @@
   color: var(--white);
   text-align: center;
 }
+
+.inputError input {
+  border-color: red;
+}

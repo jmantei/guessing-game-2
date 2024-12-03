@@ -1,5 +1,6 @@
 // regex that allows alphanumeric characters with spaces as well as empty strings
 const ALPHA_NUM_REGEX = /^[a-z0-9 ]*$/i;
+const ZERO_TEN_REGEX = /^(10|[0-9])$/;
 
 /**
  * Check that all form data is valid
@@ -100,4 +101,41 @@ function validatePlayerName(name, number, numPlayers) {
     if (name.length > 25) errors.push(`player${number}Name-length`);
   }
   return errors;
+}
+
+/**
+ * Validate the setInput fields
+ * @param {bool} validateTotalSum - true if the sum of all the gueses needs to match the totalSum parameter (only for validating the sets-won inputs)
+ * @param {*} totalSum - the total sum (only needed if validateTotalSum is true)
+ * @param  {...string} inputs - the user inputs to be validated
+ * @returns - an array of strings where each index corresponds to an input field on the page.
+ */
+export function validateSetInput(
+  validateTotalSum = false,
+  totalSum = 0,
+  ...inputs
+) {
+  const errorArray = [];
+  inputs.forEach((input) => {
+    // cannot be empty
+    if (input === "") errorArray.push("empty");
+    // must be valid number
+    else if (!ZERO_TEN_REGEX.test(input)) errorArray.push("non-number");
+    else errorArray.push("");
+  });
+  // check if total sum is incorrect (sets-won only)
+  console.log("eoor");
+  console.log(!errorArray.includes("empty"));
+  console.log(!errorArray.includes("non-number"));
+  console.log(totalSum);
+  console.log(inputs.reduce((a, b) => Number(a) + Number(b), 0));
+  if (
+    validateTotalSum &&
+    !errorArray.includes("empty") &&
+    !errorArray.includes("non-number") &&
+    inputs.reduce((a, b) => Number(a) + Number(b), 0) !== totalSum
+  )
+    return inputs.map(() => "not-adding-up");
+
+  return errorArray;
 }
