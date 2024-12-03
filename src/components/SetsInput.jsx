@@ -13,9 +13,9 @@ function SetsInput({
         showError ? styles.inputError : ""
       }`}
     >
-      <label
-        htmlFor={`player-${playerNumber}-input`}
-      >{`${playerName}'s guess:`}</label>
+      <label htmlFor={`player-${playerNumber}-input`}>{`${playerName}'s ${
+        guessOnly ? "guess" : "sets won"
+      }:`}</label>
       <input type="tel" id={`player-${playerNumber}-input`} />
       {guessOnly ? null : <p>{guessAmount}</p>}
     </div>

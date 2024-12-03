@@ -29,5 +29,5 @@
 }
 
 .inputError input {
-  border-color: red;
+  border-color: var(--red);
 }

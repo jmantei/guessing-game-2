@@ -77,6 +77,10 @@
   gap: 1rem;
 }
 
+.setInputError {
+  color: var(--red);
+}
+
 .endOfGameBox {
   color: var(--blue);
   text-align: center;

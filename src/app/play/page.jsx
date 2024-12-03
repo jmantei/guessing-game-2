@@ -34,7 +34,7 @@ function Page() {
   const searchParams = useSearchParams();
 
   // get game title from url
-  const gameUrl = searchParams.get("game");
+  const gameUrl = searchParams.get("game") || "";
   const gameTitle = gameUrl.replace(/\+/g, " ");
 
   // if game doesnt exist
@@ -155,7 +155,13 @@ function Page() {
                   )}
                 </div>
                 {/* error output */}
-                <p>{validInputs ? "" : "Input Errors"}</p>
+                <p className={styles.setInputError}>
+                  {validInputs
+                    ? ""
+                    : setInputErrors.includes("not-adding-up")
+                    ? "Sets won have to match the amount of cards."
+                    : "All inputs have to be valid numbers."}
+                </p>
                 <Button
                   text="Submit Guesses"
                   onClick={(e) => {
@@ -210,7 +216,13 @@ function Page() {
                   )}
                 </div>
                 {/* error output */}
-                <p>{validInputs ? "" : "Input Errors"}</p>
+                <p className={styles.setInputError}>
+                  {validInputs
+                    ? ""
+                    : setInputErrors.includes("not-adding-up")
+                    ? "Sets won have to match the amount of cards."
+                    : "All inputs have to be valid numbers."}
+                </p>
                 <Button
                   text="Submit Sets Won"
                   onClick={(e) => {
