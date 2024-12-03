@@ -92,8 +92,10 @@ function Page() {
         {/* Game Ended */}
         {gameState.round > tablecols.length ? (
           <>
-            <h2>🎉 Congratulations to the Winner 🎉</h2>
-            <h2>Player 1 with 25 points</h2>
+            <div className={styles.endOfGameBox}>
+              <h2>🎉 Congratulations to the Winner 🎉</h2>
+              <h2>Player 1 with 25 points</h2>
+            </div>
             <Button text="Back to Main Menu" navlink href="/" />
           </>
         ) : (
