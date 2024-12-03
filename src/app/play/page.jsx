@@ -169,7 +169,9 @@ function Page() {
                     const playerGuesses = [];
                     e.target.previousSibling.previousSibling.childNodes.forEach(
                       (inputElement) => {
-                        playerGuesses.push(inputElement.childNodes[1].value);
+                        playerGuesses.push(
+                          inputElement.childNodes[1].value.trim()
+                        );
                       }
                     );
                     console.log(playerGuesses);
@@ -230,7 +232,9 @@ function Page() {
                     const playerGuesses = [];
                     e.target.previousSibling.previousSibling.childNodes.forEach(
                       (inputElement) => {
-                        playerGuesses.push(inputElement.childNodes[1].value);
+                        playerGuesses.push(
+                          inputElement.childNodes[1].value.trim()
+                        );
                       }
                     );
                     console.log(playerGuesses);
