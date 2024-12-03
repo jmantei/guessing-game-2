@@ -89,7 +89,7 @@ function addGameData(
       player8,
     ],
     round: 0,
-    state: "round-start", // round-start, guesses, round-play, sets-won,
+    state: "start-round", // start-round, guesses, sets-won
     game: {
       guesses: {
         player1: [],
@@ -101,7 +101,7 @@ function addGameData(
         player7: [],
         player8: [],
       },
-      "sets-won": {
+      setsWon: {
         player1: [],
         player2: [],
         player3: [],

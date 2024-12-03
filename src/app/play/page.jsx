@@ -88,50 +88,105 @@ function Page() {
             </tbody>
           </table>
         </div>
-        {/* round start */}
-        {gameState.state == "round-start" ? (
-          <Button
-            text="Advance to Next Round"
-            onClick={() =>
-              setGameState((prev) => ({
-                ...prev,
-                state: "guesses",
-                round: ++prev.round,
-              }))
-            }
-          />
-        ) : null}
-        {/* guesses */}
-        {gameState.state == "guesses" ? (
+
+        {/* Game Ended */}
+        {gameState.round > tablecols.length ? (
           <>
-            <RoundInfo
-              round={gameState.round}
-              cards={tablecols[gameState.round - 1]}
-            />
-            <div className={styles.inputBox}>
-              {Array.from(Array(gameState.numberOfPlayer).keys()).map((n) => (
-                <SetsInput key={n} playerName={gameState.playerNames[n]} />
-              ))}
-            </div>
+            <h2>🎉 Congratulations to the Winner 🎉</h2>
+            <h2>Player 1 with 25 points</h2>
+            <Button text="Back to Main Menu" navlink href="/" />
+          </>
+        ) : (
+          <>
+            {/* round start */}
+            {gameState.state == "start-round" ? (
+              <Button
+                text={
+                  !gameState.round
+                    ? "Start First Round"
+                    : gameState.round === tablecols.length - 1
+                    ? "Start Last Round"
+                    : gameState.round === tablecols.length
+                    ? "Finish Game"
+                    : "Start Next Round"
+                }
+                onClick={() =>
+                  setGameState((prev) => ({
+                    ...prev,
+                    state: "guesses",
+                    round: prev.round++,
+                  }))
+                }
+              />
+            ) : null}
+            {/* submit guesses */}
+            {gameState.state == "guesses" ? (
+              <>
+                <RoundInfo
+                  round={gameState.round}
+                  cards={tablecols[gameState.round - 1]}
+                />
+                <div className={styles.inputBox}>
+                  {Array.from(Array(gameState.numberOfPlayer).keys()).map(
+                    (n) => (
+                      <SetsInput
+                        key={n}
+                        playerName={gameState.playerNames[n]}
+                        guessOnly
+                      />
+                    )
+                  )}
+                </div>
+                <Button
+                  text="Submit Guesses"
+                  onClick={() =>
+                    setGameState((prev) => ({
+                      ...prev,
+                      state: "sets-won",
+                      // logic for saving guesses goes here
+                    }))
+                  }
+                />
+              </>
+            ) : null}
+            {/* submit sets won */}
+            {gameState.state == "sets-won" ? (
+              <>
+                <RoundInfo
+                  round={gameState.round}
+                  cards={tablecols[gameState.round - 1]}
+                />
+                <div className={styles.inputBox}>
+                  {Array.from(Array(gameState.numberOfPlayer).keys()).map(
+                    (n) => (
+                      <SetsInput
+                        key={n}
+                        playerName={gameState.playerNames[n]}
+                      />
+                    )
+                  )}
+                </div>
+                <Button
+                  text="Submit Sets Won"
+                  onClick={() =>
+                    setGameState((prev) => ({
+                      ...prev,
+                      state: "start-round",
+                      // logic for saving sets won goes here
+                    }))
+                  }
+                />
+              </>
+            ) : null}
             <Button
-              text="Submit Guesses"
-              onClick={() =>
-                setGameState((prev) => ({
-                  ...prev,
-                  state: "round-play",
-                  // logic for saving guesses goes here
-                }))
-              }
+              type="secondary"
+              text="Save and Exit"
+              onClick={() => {
+                setExitModalOpen(true);
+              }}
             />
           </>
-        ) : null}
-        <Button
-          type="secondary"
-          text="Save and Exit"
-          onClick={() => {
-            setExitModalOpen(true);
-          }}
-        />
+        )}
       </div>
       {exitModalOpen ? (
         <ExitModal onModalClose={() => setExitModalOpen(false)} />
