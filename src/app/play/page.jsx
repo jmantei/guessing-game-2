@@ -129,7 +129,7 @@ function Page() {
                   setGameState((prev) => ({
                     ...prev,
                     state: "guesses",
-                    round: prev.round++,
+                    round: ++prev.round,
                   }))
                 }
               />
@@ -188,12 +188,22 @@ function Page() {
                     setSetInputErrors(validationArray);
 
                     // submit guesses if inputs are valid
-                    if (validationArray.join("").length === 0)
+                    if (validationArray.join("").length === 0) {
+                      // create new game state
+                      const newGameData = gameState.game;
+                      for (let i = 0; i < playerGuesses.length; i++) {
+                        newGameData.guesses[`player${i + 1}`].push(
+                          Number(playerGuesses[i])
+                        );
+                      }
+
+                      // save new game state
                       setGameState((prev) => ({
                         ...prev,
                         state: "sets-won",
-                        // logic for saving guesses goes here
+                        game: newGameData,
                       }));
+                    }
                   }}
                 />
               </>
@@ -213,6 +223,11 @@ function Page() {
                         playerNumber={n + 1}
                         playerName={gameState.playerNames[n]}
                         showError={setInputErrors[n] !== ""}
+                        guessAmount={
+                          gameState.game.guesses[`player${n + 1}`][
+                            gameState.round - 1
+                          ]
+                        }
                       />
                     )
                   )}
@@ -229,21 +244,21 @@ function Page() {
                   text="Submit Sets Won"
                   onClick={(e) => {
                     // get player guesses
-                    const playerGuesses = [];
+                    const playerSetsWon = [];
                     e.target.previousSibling.previousSibling.childNodes.forEach(
                       (inputElement) => {
-                        playerGuesses.push(
+                        playerSetsWon.push(
                           inputElement.childNodes[1].value.trim()
                         );
                       }
                     );
-                    console.log(playerGuesses);
+                    console.log(playerSetsWon);
 
                     // validate player guesses
                     const validationArray = validateSetInput(
                       true,
                       Number(tablecols[gameState.round - 1]),
-                      ...playerGuesses
+                      ...playerSetsWon
                     );
                     console.log(validationArray);
 
@@ -251,12 +266,22 @@ function Page() {
                     setSetInputErrors(validationArray);
 
                     // submit guesses if inputs are valid
-                    if (validationArray.join("").length === 0)
+                    if (validationArray.join("").length === 0) {
+                      // create new game state
+                      const newGameData = gameState.game;
+                      for (let i = 0; i < playerSetsWon.length; i++) {
+                        newGameData.setsWon[`player${i + 1}`].push(
+                          Number(playerSetsWon[i])
+                        );
+                      }
+
+                      // save new game state
                       setGameState((prev) => ({
                         ...prev,
                         state: "start-round",
-                        // logic for saving sets won goes here
+                        game: newGameData,
                       }));
+                    }
                   }}
                 />
               </>
