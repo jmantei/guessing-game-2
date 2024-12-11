@@ -14,6 +14,7 @@ import ExitModal from "@/components/ExitModal";
 import LocalStorage from "@/utils/LocalStorage";
 import { validateSetInput } from "@/utils/Validation";
 import styles from "./page.module.css";
+import { CalculateScore } from "@/utils/GameLogic";
 
 function Page() {
   // modal state for returning to main menu
@@ -94,7 +95,7 @@ function Page() {
                             {gameState.game.guesses[`player${i + 1}`][j - 1]}
                           </span>
                           <span>
-                            {gameState.game.setsWon[`player${i + 1}`][j - 1]}
+                            {gameState.game.points[`player${i + 1}`][j - 1]}
                           </span>
                         </div>
                       )}
@@ -133,7 +134,7 @@ function Page() {
                   setGameState((prev) => ({
                     ...prev,
                     state: "guesses",
-                    round: ++prev.round,
+                    round: prev.round++,
                   }))
                 }
               />
@@ -196,6 +197,7 @@ function Page() {
                       // create new game state
                       const newGameData = gameState.game;
                       for (let i = 0; i < playerGuesses.length; i++) {
+                        // add guesses
                         newGameData.guesses[`player${i + 1}`].push(
                           Number(playerGuesses[i])
                         );
@@ -247,7 +249,7 @@ function Page() {
                 <Button
                   text="Submit Sets Won"
                   onClick={(e) => {
-                    // get player guesses
+                    // get player sets won
                     const playerSetsWon = [];
                     e.target.previousSibling.previousSibling.childNodes.forEach(
                       (inputElement) => {
@@ -258,7 +260,7 @@ function Page() {
                     );
                     console.log(playerSetsWon);
 
-                    // validate player guesses
+                    // validate player sets won
                     const validationArray = validateSetInput(
                       true,
                       Number(tablecols[gameState.round - 1]),
@@ -269,13 +271,38 @@ function Page() {
                     // update errors on page state
                     setSetInputErrors(validationArray);
 
-                    // submit guesses if inputs are valid
+                    // submit sets won if inputs are valid
                     if (validationArray.join("").length === 0) {
                       // create new game state
                       const newGameData = gameState.game;
                       for (let i = 0; i < playerSetsWon.length; i++) {
+                        // add sets won
                         newGameData.setsWon[`player${i + 1}`].push(
                           Number(playerSetsWon[i])
+                        );
+                        // add points
+                        console.log(
+                          "guess: ",
+                          newGameData.guesses[`player${i + 1}`][
+                            newGameData.guesses[`player${i + 1}`].length - 1
+                          ]
+                        );
+                        console.log("setswon: ", playerSetsWon[i]);
+                        newGameData.points[`player${i + 1}`].push(
+                          CalculateScore(
+                            Number(
+                              newGameData.guesses[`player${i + 1}`][
+                                newGameData.guesses[`player${i + 1}`].length - 1
+                              ]
+                            ),
+                            Number(playerSetsWon[i])
+                          ) +
+                            (newGameData.points[`player${i + 1}`].length === 0
+                              ? 0
+                              : newGameData.points[`player${i + 1}`][
+                                  newGameData.points[`player${i + 1}`].length -
+                                    1
+                                ])
                         );
                       }
 
