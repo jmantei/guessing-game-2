@@ -9,11 +9,12 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 
 import styles from "./page.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function NewGame() {
   const router = useRouter();
   const [numOfPlayers, setNumOfPlayers] = useState(0);
+  const [formErrorSate, setFormErrorSate] = useState([]);
 
   function handlePlayerChange(e) {
     setNumOfPlayers(Number(e.target.value));
@@ -79,40 +80,65 @@ function NewGame() {
       player7Name,
       player8Name
     );
-    if (formErrors.length == 0) {
-      // if no errors, check if game exists
-      if (LocalStorage.gameExists(gameTitle)) {
-        // game title already exists
-        console.log("game title already exists");
-      } else {
-        // add game to localstorage
-        LocalStorage.addGameTitle(gameTitle);
-        LocalStorage.addGameData(
-          gameTitle,
-          gameType,
-          numPlayers,
-          player1Name,
-          player2Name,
-          player3Name,
-          player4Name,
-          player5Name,
-          player6Name,
-          player7Name,
-          player8Name
-        );
 
-        // redirect to play game page
-        router.push(`/play?game=${gameTitle.replace(/\s+/g, "+")}`);
-      }
-    } else {
-      // form data invalid
-      console.log("INVALID");
+    // remove unique player names error if other name errors exists
+    if (
+      (formErrors.includes("player1Name-none") ||
+        formErrors.includes("player2Name-none") ||
+        formErrors.includes("player3Name-none") ||
+        formErrors.includes("player4Name-none") ||
+        formErrors.includes("player5Name-none") ||
+        formErrors.includes("player6Name-none") ||
+        formErrors.includes("player7Name-none") ||
+        formErrors.includes("player8Name-none") ||
+        formErrors.includes("player1Name-alphanum") ||
+        formErrors.includes("player2Name-alphanum") ||
+        formErrors.includes("player3Name-alphanum") ||
+        formErrors.includes("player4Name-alphanum") ||
+        formErrors.includes("player5Name-alphanum") ||
+        formErrors.includes("player6Name-alphanum") ||
+        formErrors.includes("player7Name-alphanum") ||
+        formErrors.includes("player8Name-alphanum") ||
+        formErrors.includes("player1Name-length") ||
+        formErrors.includes("player2Name-length") ||
+        formErrors.includes("player3Name-length") ||
+        formErrors.includes("player4Name-length") ||
+        formErrors.includes("player5Name-length") ||
+        formErrors.includes("player6Name-length") ||
+        formErrors.includes("player7Name-length") ||
+        formErrors.includes("player8Name-length")) &&
+      formErrors.includes("unique-names")
+    )
+      formErrors.pop("unique-names");
+
+    // check if game exists
+    if (LocalStorage.gameExists(gameTitle)) formErrors.push("game-exists");
+
+    // check if there are errors
+    if (formErrors.length !== 0) {
+      setFormErrorSate(formErrors);
       console.log(formErrors);
+      return;
     }
 
-    // save form data
+    // add game to localstorage
+    LocalStorage.addGameTitle(gameTitle);
+    LocalStorage.addGameData(
+      gameTitle,
+      gameType,
+      numPlayers,
+      player1Name,
+      player2Name,
+      player3Name,
+      player4Name,
+      player5Name,
+      player6Name,
+      player7Name,
+      player8Name
+    );
 
     // redirect to play game page
+    router.push(`/play?game=${gameTitle.replace(/\s+/g, "+")}`);
   }
 
   return (
@@ -121,25 +147,37 @@ function NewGame() {
         <Header text="Create New Game" />
         <form className={styles.form} onSubmit={handleFormSubmit}>
           <div className={styles.selectControl}>
-            <select name="game-type" id="game-type">
-              <option value="">Select Length</option>
-              <option value="full">Full Game</option>
-              <option value="half">Half Game</option>
-            </select>
-            <select
-              name="num-players"
-              id="num-players"
-              onChange={handlePlayerChange}
-            >
-              <option value="">Select Players</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-            </select>
+            <div className={styles.selectSubControl}>
+              <select name="game-type" id="game-type">
+                <option value="">Select Length</option>
+                <option value="full">Full Game</option>
+                <option value="half">Half Game</option>
+              </select>
+              {formErrorSate.includes("type-none") && (
+                <p className={styles.setInputError}>Game length is required.</p>
+              )}
+            </div>
+            <div className={styles.selectSubControl}>
+              <select
+                name="num-players"
+                id="num-players"
+                onChange={handlePlayerChange}
+              >
+                <option value="">Select Players</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
+              {formErrorSate.includes("players-none") && (
+                <p className={styles.setInputError}>
+                  Number of players is required.
+                </p>
+              )}
+            </div>
           </div>
           <div className={styles.textControl}>
             {numOfPlayers ? (
@@ -147,6 +185,14 @@ function NewGame() {
             ) : null}
             {Array.from(Array(numOfPlayers).keys()).map((n) => (
               <input
+                className={
+                  formErrorSate.includes(`player${n + 1}Name-none`) ||
+                  formErrorSate.includes(`player${n + 1}Name-alphanum`) ||
+                  formErrorSate.includes(`player${n + 1}Name-length`) ||
+                  formErrorSate.includes(`unique-names`)
+                    ? styles.setInputBorderError
+                    : ""
+                }
                 key={n}
                 type="text"
                 defaultValue={`Player ${n + 1}`}
@@ -154,15 +200,80 @@ function NewGame() {
                 id={`player-${n + 1}`}
               />
             ))}
+            {(formErrorSate.includes("player1Name-none") ||
+              formErrorSate.includes("player2Name-none") ||
+              formErrorSate.includes("player3Name-none") ||
+              formErrorSate.includes("player4Name-none") ||
+              formErrorSate.includes("player5Name-none") ||
+              formErrorSate.includes("player6Name-none") ||
+              formErrorSate.includes("player7Name-none") ||
+              formErrorSate.includes("player8Name-none")) && (
+              <p className={styles.setInputError}>
+                Player names cannot be empty.
+              </p>
+            )}
+            {(formErrorSate.includes("player1Name-alphanum") ||
+              formErrorSate.includes("player2Name-alphanum") ||
+              formErrorSate.includes("player3Name-alphanum") ||
+              formErrorSate.includes("player4Name-alphanum") ||
+              formErrorSate.includes("player5Name-alphanum") ||
+              formErrorSate.includes("player6Name-alphanum") ||
+              formErrorSate.includes("player7Name-alphanum") ||
+              formErrorSate.includes("player8Name-alphanum")) && (
+              <p className={styles.setInputError}>
+                Player names can only contain letters and numbers.
+              </p>
+            )}
+            {(formErrorSate.includes("player1Name-length") ||
+              formErrorSate.includes("player2Name-length") ||
+              formErrorSate.includes("player3Name-length") ||
+              formErrorSate.includes("player4Name-length") ||
+              formErrorSate.includes("player5Name-length") ||
+              formErrorSate.includes("player6Name-length") ||
+              formErrorSate.includes("player7Name-length") ||
+              formErrorSate.includes("player8Name-length")) && (
+              <p className={styles.setInputError}>
+                Player names can only contain a maximum of 25 characters.
+              </p>
+            )}
+            {formErrorSate.includes("unique-names") && (
+              <p className={styles.setInputError}>
+                Player names must be unique.
+              </p>
+            )}
           </div>
           <div className={styles.textControl}>
             <label htmlFor="game-title">Game title:</label>
             <input
+              className={
+                formErrorSate.includes("title-none") ||
+                formErrorSate.includes("title-alphanum") ||
+                formErrorSate.includes("title-length") ||
+                formErrorSate.includes("game-exists")
+                  ? styles.setInputBorderError
+                  : ""
+              }
               type="text"
               placeholder="Game title..."
               name="game-title"
               id="game-title"
             />
+            {formErrorSate.includes("title-none") && (
+              <p className={styles.setInputError}>Game title is required.</p>
+            )}
+            {formErrorSate.includes("title-alphanum") && (
+              <p className={styles.setInputError}>
+                Game title can only contain letters and numbers.
+              </p>
+            )}
+            {formErrorSate.includes("title-length") && (
+              <p className={styles.setInputError}>
+                Game title can only contain a maximum of 25 characters.
+              </p>
+            )}
+            {formErrorSate.includes("game-exists") && (
+              <p className={styles.setInputError}>Game already exists.</p>
+            )}
           </div>
           <Button
             buttonType="submit"

@@ -23,6 +23,14 @@
   gap: 2rem;
 }
 
+.form .selectSubControl {
+  align-self: normal;
+}
+
+.form .selectControl .setInputError {
+  margin-top: 0.5rem;
+}
+
 .form select {
   cursor: pointer;
   font-size: 1.2rem;
@@ -72,4 +80,14 @@
 
 .startButton {
   margin-top: 4rem;
+}
+
+.setInputError {
+  max-width: 15rem;
+  margin: 0 auto;
+  color: var(--red);
+}
+
+.setInputBorderError {
+  border-color: var(--red) !important;
 }
