@@ -90,8 +90,12 @@ function Page() {
                         gameState.playerNames[i]
                       ) : (
                         <div className={styles.cellContainer}>
-                          <span>0</span>
-                          <span>1</span>
+                          <span>
+                            {gameState.game.guesses[`player${i + 1}`][j - 1]}
+                          </span>
+                          <span>
+                            {gameState.game.setsWon[`player${i + 1}`][j - 1]}
+                          </span>
                         </div>
                       )}
                     </td>
