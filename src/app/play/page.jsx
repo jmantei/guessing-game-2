@@ -13,8 +13,14 @@ import ExitModal from "@/components/ExitModal";
 
 import LocalStorage from "@/utils/LocalStorage";
 import { validateSetInput } from "@/utils/Validation";
+import { JoinWithAnd } from "@/utils/Utilities";
+import {
+  CalculateMaxScore,
+  CalculateScore,
+  CalculateWinner,
+} from "@/utils/GameLogic";
+
 import styles from "./page.module.css";
-import { CalculateScore } from "@/utils/GameLogic";
 
 function Page() {
   // modal state for returning to main menu
@@ -111,8 +117,18 @@ function Page() {
         {gameState.round > tablecols.length ? (
           <>
             <div className={styles.endOfGameBox}>
-              <h2>🎉 Congratulations to the Winner 🎉</h2>
-              <h2>Player 1 with 25 points</h2>
+              <h2>{`🎉 Congratulations to the Winner${
+                CalculateWinner(gameState.game.points, gameState.playerNames)
+                  .length > 1
+                  ? "s"
+                  : ""
+              } 🎉`}</h2>
+              <h2>
+                {JoinWithAnd(
+                  CalculateWinner(gameState.game.points, gameState.playerNames)
+                )}{" "}
+                with a score of {CalculateMaxScore(gameState.game.points)}
+              </h2>
             </div>
             <Button text="Back to Main Menu" navlink href="/" />
           </>
