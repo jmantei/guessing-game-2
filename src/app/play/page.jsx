@@ -114,7 +114,7 @@ function Page() {
         </div>
 
         {/* Game Ended */}
-        {gameState.round > tablecols.length ? (
+        {gameState.state == "finished" ? (
           <>
             <div className={styles.endOfGameBox}>
               <h2>{`🎉 Congratulations to the Winner${
@@ -146,13 +146,21 @@ function Page() {
                     ? "Finish Game"
                     : "Start Next Round"
                 }
-                onClick={() =>
-                  setGameState((prev) => ({
-                    ...prev,
-                    state: "guesses",
-                    round: prev.round++,
-                  }))
-                }
+                onClick={() => {
+                  // check if it is the final round
+                  if (gameState.round === tablecols.length) {
+                    setGameState((prev) => ({
+                      ...prev,
+                      state: "finished",
+                    }));
+                  } else {
+                    setGameState((prev) => ({
+                      ...prev,
+                      state: "guesses",
+                      round: prev.round++,
+                    }));
+                  }
+                }}
               />
             ) : null}
             {/* submit guesses */}
