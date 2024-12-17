@@ -157,7 +157,7 @@ function Page() {
                     setGameState((prev) => ({
                       ...prev,
                       state: "guesses",
-                      round: prev.round++,
+                      round: ++prev.round,
                     }));
                   }
                 }}
