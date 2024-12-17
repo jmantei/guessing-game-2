@@ -29,7 +29,10 @@ function init() {
   // check if code is running in the browser
   if (typeof window === "undefined") return;
 
-  const appData = JSON.parse(localStorage.getItem("app"));
+  // Check if app data exists in localStorage
+  const appData = localStorage.getItem("app");
+
+  // If no app data exists, initialize it
   if (!appData) {
     localStorage.setItem(
       "app",

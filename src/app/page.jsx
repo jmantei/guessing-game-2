@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import LocalStorage from "@/utils/LocalStorage";
@@ -10,10 +10,13 @@ import Main from "@/layouts/Main";
 import styles from "./page.module.css";
 
 export default function Home() {
-  const [localStorageExists, _] = useState(LocalStorage.exists());
-  if (localStorageExists) {
-    LocalStorage.init();
-  }
+  const [localStorageExists, _] = useState(true);
+
+  useEffect(() => {
+    if (localStorageExists) {
+      LocalStorage.init();
+    }
+  }, [localStorageExists]);
 
   return (
     <Main centered noLocalStorageCheck>
