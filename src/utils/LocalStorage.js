@@ -3,6 +3,9 @@
  * @returns bool - true if local storage is available, false if not
  */
 function exists() {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return false;
+
   // Check if we are in the browser environment and if localStorage is available
   if (window.localStorage) {
     try {
@@ -23,6 +26,9 @@ function exists() {
  * create app object if it doesn't exists
  */
 function init() {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return;
+
   const appData = JSON.parse(localStorage.getItem("app"));
   if (!appData) {
     localStorage.setItem(
@@ -39,6 +45,9 @@ function init() {
  * @param {string} gameTitle - title of game to be saved
  */
 function addGameTitle(gameTitle) {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return;
+
   const appData = JSON.parse(localStorage.getItem("app"));
   const updatedAppData = {
     ...appData,
@@ -74,6 +83,9 @@ function addGameData(
   player7 = null,
   player8 = null
 ) {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return;
+
   // add game data to local storage
   const gameData = {
     type: gameType,
@@ -132,6 +144,9 @@ function addGameData(
  * @returns bool - true if it does exist, false if not
  */
 function gameExists(gameTitle) {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return false;
+
   const appData = localStorage.getItem("app");
   const gameData = localStorage.getItem(`game - ${gameTitle}`);
   if (!gameData || !appData) return false;
@@ -145,6 +160,9 @@ function gameExists(gameTitle) {
  * @returns Returns object of gameData or null of no matching game is found.
  */
 function getGameData(gameTitle) {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return null;
+
   // check if game exists;
   if (!gameExists(gameTitle)) return null;
 
@@ -157,6 +175,9 @@ function getGameData(gameTitle) {
  * @returns returns the app data object or null if none exists in local storage
  */
 function getAppData() {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return null;
+
   const appData = localStorage.getItem("app");
   return appData ? JSON.parse(appData) : null;
 }
