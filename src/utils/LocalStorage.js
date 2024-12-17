@@ -93,6 +93,7 @@ function addGameData(
   const gameData = {
     type: gameType,
     numberOfPlayer: numPlayers,
+    startingPlayerIndex: Math.floor(Math.random() * numPlayers),
     playerNames: [
       player1,
       player2,

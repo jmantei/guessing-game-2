@@ -158,6 +158,10 @@ function Page() {
                       ...prev,
                       state: "guesses",
                       round: ++prev.round,
+                      startingPlayerIndex:
+                        prev.startingPlayerIndex < prev.numberOfPlayer - 1
+                          ? ++prev.startingPlayerIndex
+                          : 0,
                     }));
                   }
                 }}
@@ -169,6 +173,8 @@ function Page() {
                 <RoundInfo
                   round={gameState.round}
                   cards={tablecols[gameState.round - 1]}
+                  playerNames={gameState.playerNames}
+                  playerGuessingFirstIndex={gameState.startingPlayerIndex}
                 />
                 <div className={styles.inputBox}>
                   {Array.from(Array(gameState.numberOfPlayer).keys()).map(
@@ -244,6 +250,8 @@ function Page() {
                 <RoundInfo
                   round={gameState.round}
                   cards={tablecols[gameState.round - 1]}
+                  playerNames={gameState.playerNames}
+                  playerGuessingFirstIndex={gameState.startingPlayerIndex}
                 />
                 <div className={styles.inputBox}>
                   {Array.from(Array(gameState.numberOfPlayer).keys()).map(
