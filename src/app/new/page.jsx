@@ -16,6 +16,38 @@ function NewGame() {
   const [numOfPlayers, setNumOfPlayers] = useState(0);
   const [formErrorSate, setFormErrorSate] = useState([]);
 
+  function autofillTitle(e) {
+    e.preventDefault();
+    const inputEl = e.target.previousSibling;
+
+    const date = new Date();
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const formattedDate = `${
+      months[date.getMonth()]
+    } ${date.getDate()} ${date.getFullYear()} ${date
+      .getHours()
+      .toString()
+      .padStart(2, "0")}${date.getMinutes().toString().padStart(2, "0")}${date
+      .getSeconds()
+      .toString()
+      .padStart(2, "0")}`;
+
+    inputEl.value = formattedDate;
+  }
+
   function handlePlayerChange(e) {
     setNumOfPlayers(Number(e.target.value));
   }
@@ -245,19 +277,25 @@ function NewGame() {
           <div className={styles.textControl}>
             <label htmlFor="game-title">Game title:</label>
             <input
-              className={
+              className={`${
                 formErrorSate.includes("title-none") ||
                 formErrorSate.includes("title-alphanum") ||
                 formErrorSate.includes("title-length") ||
                 formErrorSate.includes("game-exists")
                   ? styles.setInputBorderError
                   : ""
-              }
+              } ${styles.gameTitleInput}`}
               type="text"
               placeholder="Game title..."
               name="game-title"
               id="game-title"
             />
+            <Button
+              text="Autofill"
+              className={styles.autofillButton}
+              onClick={autofillTitle}
+            />
+
             {formErrorSate.includes("title-none") && (
               <p className={styles.setInputError}>Game title is required.</p>
             )}

@@ -11,6 +11,8 @@
 }
 
 .form {
+  width: 20rem;
+
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -56,6 +58,8 @@
 }
 
 .form .textControl {
+  position: relative;
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -90,4 +94,17 @@
 
 .setInputBorderError {
   border-color: var(--red) !important;
+}
+
+.autofillButton {
+  background-color: var(--black);
+  width: auto;
+  padding: 1rem;
+  position: absolute;
+  right: 0;
+  top: 2.8rem;
+}
+
+.gameTitleInput {
+  padding-right: 7rem !important;
 }
