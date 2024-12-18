@@ -2,6 +2,8 @@ import localFont from "next/font/local";
 import "./reset.css";
 import "./globals.css";
 
+import Spinner from "@/components/Spinner";
+
 import { Suspense } from "react";
 
 const inter = localFont({
@@ -19,7 +21,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+        <Suspense fallback={<Spinner />}>{children}</Suspense>
       </body>
     </html>
   );
