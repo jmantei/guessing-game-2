@@ -28,3 +28,8 @@
 .modal a {
   margin-top: 2rem;
 }
+
+.redButton {
+  margin-top: 2rem;
+  background-color: var(--red);
+}

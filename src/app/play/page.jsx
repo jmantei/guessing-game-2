@@ -9,7 +9,7 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import RoundInfo from "@/components/RoundInfo";
 import SetsInput from "@/components/SetsInput";
-import ExitModal from "@/components/ExitModal";
+import Modal from "@/components/Modal";
 
 import LocalStorage from "@/utils/LocalStorage";
 import { validateSetInput } from "@/utils/Validation";
@@ -360,7 +360,15 @@ function Page() {
         )}
       </div>
       {exitModalOpen ? (
-        <ExitModal onModalClose={() => setExitModalOpen(false)} />
+        <Modal
+          buttonText="Return to Main Menu"
+          confirmNavlink
+          paragraphs={[
+            "Are you sure you want to quit this game and return to the main menu?",
+            "Your progress will be automatically saved.",
+          ]}
+          onModalClose={() => setExitModalOpen(false)}
+        />
       ) : null}
     </Main>
   );

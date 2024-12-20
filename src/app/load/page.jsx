@@ -1,20 +1,49 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import LocalStorage from "@/utils/LocalStorage";
 
 import Main from "@/layouts/Main";
 import Button from "@/components/Button";
+import Modal from "@/components/Modal";
 
 import styles from "./page.module.css";
 
 function Page() {
+  // modal states
+  const [gameToDelete, setGameToDelete] = useState(null);
+  const [deleteAllGames, setDeleteAllGames] = useState(false);
+  const [noGamesToDelete, setNoGamesToDelete] = useState(false);
+
+  const router = useRouter();
+
   const appData = LocalStorage.getAppData();
   let games = [];
   if (appData) games = appData.games;
 
   function handleDeleteGame(game) {
+    // delete game
     LocalStorage.removeGameData(game);
     LocalStorage.removeGameTitle(game);
+
+    // reload page
+    router.refresh();
+
+    // close modal
+    setGameToDelete(null);
+  }
+
+  function handleDeleteAllGames() {
+    // reset all data
+    LocalStorage.reset();
+
+    // reload page
+    router.refresh();
+
+    // close modal
+    setDeleteAllGames(null);
   }
 
   return (
@@ -36,7 +65,7 @@ function Page() {
                     />
                     <Button
                       text="Delete"
-                      onClick={() => handleDeleteGame(game)}
+                      onClick={() => setGameToDelete(game)}
                       className={styles.deleteButton}
                     />
                   </div>
@@ -51,9 +80,52 @@ function Page() {
         <Button
           text="Clear All Saved Games"
           className={styles.deleteAllButton}
-          onClick={LocalStorage.reset}
+          onClick={() => {
+            // check if no games have been saved
+            if (LocalStorage.getAppData().games.length === 0) {
+              setNoGamesToDelete(true);
+              return;
+            }
+
+            setDeleteAllGames(true);
+          }}
         />
       </div>
+      {gameToDelete ? (
+        <Modal
+          buttonText="Delete Game"
+          redButton
+          paragraphs={[
+            `Are you sure you want to delete \"${gameToDelete}\"?`,
+            "This action cannot be undone.",
+          ]}
+          onModalConfirm={() => handleDeleteGame(gameToDelete)}
+          onModalClose={() => setGameToDelete(null)}
+        />
+      ) : null}
+      {deleteAllGames ? (
+        <Modal
+          buttonText="Delete All Games"
+          redButton
+          paragraphs={[
+            `Are you sure you want to delete all your saved games?`,
+            "This action cannot be undone.",
+          ]}
+          onModalConfirm={handleDeleteAllGames}
+          onModalClose={() => setDeleteAllGames(false)}
+        />
+      ) : null}
+      {noGamesToDelete ? (
+        <Modal
+          buttonText="Return to Main Menu"
+          confirmNavlink
+          paragraphs={[
+            "There are no games to delete.",
+            'Select "New Game" at the Main Menu to create a game.',
+          ]}
+          onModalClose={() => setNoGamesToDelete(false)}
+        />
+      ) : null}
     </Main>
   );
 }
