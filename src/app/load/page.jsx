@@ -12,6 +12,11 @@ function Page() {
   let games = [];
   if (appData) games = appData.games;
 
+  function handleDeleteGame(game) {
+    LocalStorage.removeGameData(game);
+    LocalStorage.removeGameTitle(game);
+  }
+
   return (
     <Main>
       <div className={styles.page}>
@@ -31,8 +36,7 @@ function Page() {
                     />
                     <Button
                       text="Delete"
-                      navlink
-                      href={`/play?game=${game.replace(/ /g, "+")}`}
+                      onClick={() => handleDeleteGame(game)}
                       className={styles.deleteButton}
                     />
                   </div>
@@ -44,7 +48,11 @@ function Page() {
           <h2>No games found</h2>
         )}
         <Button type="secondary" text="Back to Main Menu" navlink href="/" />
-        <Button text="Clear All Saved Games" />
+        <Button
+          text="Clear All Saved Games"
+          className={styles.deleteAllButton}
+          onClick={LocalStorage.reset}
+        />
       </div>
     </Main>
   );

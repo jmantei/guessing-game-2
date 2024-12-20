@@ -44,6 +44,18 @@ function init() {
 }
 
 /**
+ * reset localstorage data
+ */
+function reset() {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return;
+
+  // clear and reset data
+  localStorage.clear();
+  init();
+}
+
+/**
  * Save game title to app object in local storage
  * @param {string} gameTitle - title of game to be saved
  */
@@ -143,6 +155,34 @@ function addGameData(
 }
 
 /**
+ * Remove game title from app object in local storage
+ * @param {string} gameTitle - title of game to be saved
+ */
+function removeGameTitle(gameTitle) {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return;
+
+  const appData = JSON.parse(localStorage.getItem("app"));
+  const updatedAppData = {
+    ...appData,
+    games: [...appData.games.filter((title) => title !== gameTitle)],
+  };
+  localStorage.setItem("app", JSON.stringify(updatedAppData));
+}
+
+/**
+ * Remove game data object from local storage
+ * @param {string} gameTitle - title of game
+ */
+function removeGameData(gameTitle) {
+  // check if code is running in the browser
+  if (typeof window === "undefined") return;
+
+  // remove game object
+  localStorage.removeItem(`game - ${gameTitle}`);
+}
+
+/**
  * Check if the game already exists in local storage
  * @param {string} gameTitle - title of the game
  * @returns bool - true if it does exist, false if not
@@ -189,8 +229,11 @@ function getAppData() {
 const LocalStorage = {
   exists,
   init,
+  reset,
   addGameTitle,
   addGameData,
+  removeGameTitle,
+  removeGameData,
   gameExists,
   getGameData,
   getAppData,

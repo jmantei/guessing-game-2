@@ -52,6 +52,10 @@
   border-bottom-left-radius: 0;
 }
 
+.deleteAllButton {
+  background-color: var(--red);
+}
+
 @media screen and (max-width: 325px) {
   .buttonContainer {
     flex-direction: column;
