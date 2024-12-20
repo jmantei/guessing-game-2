@@ -18,18 +18,55 @@
   list-style-type: none;
   border-radius: 1.1rem;
   border: 0.2rem var(--black) solid;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .gameListItem p {
+  text-align: center;
   padding: 1rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.gameListItem a {
-  flex: 0 1 15rem;
-  margin-left: auto;
+.buttonContainer {
+  background-color: var(--black);
+  border-radius: 1.1rem;
+  width: 100%;
+  display: flex;
+  gap: 0.2rem;
+}
+
+.loadButton {
+  flex-grow: 1;
+  border-radius: 0.9rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.deleteButton {
+  width: fit-content;
+  background-color: var(--red);
+  padding: 1rem 2rem;
+  border-radius: 0.9rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+@media screen and (max-width: 325px) {
+  .buttonContainer {
+    flex-direction: column;
+  }
+
+  .loadButton {
+    border-radius: 0.9rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .deleteButton {
+    width: auto;
+    border-radius: 0.9rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 }

@@ -22,11 +22,20 @@ function Page() {
               {games.map((game) => (
                 <li key={game} className={styles.gameListItem}>
                   <p>{game}</p>
-                  <Button
-                    text="Load Game"
-                    navlink
-                    href={`/play?game=${game.replace(/ /g, "+")}`}
-                  />
+                  <div className={styles.buttonContainer}>
+                    <Button
+                      text="Load"
+                      navlink
+                      href={`/play?game=${game.replace(/ /g, "+")}`}
+                      className={styles.loadButton}
+                    />
+                    <Button
+                      text="Delete"
+                      navlink
+                      href={`/play?game=${game.replace(/ /g, "+")}`}
+                      className={styles.deleteButton}
+                    />
+                  </div>
                 </li>
               ))}
             </ul>
@@ -35,6 +44,7 @@ function Page() {
           <h2>No games found</h2>
         )}
         <Button type="secondary" text="Back to Main Menu" navlink href="/" />
+        <Button text="Clear All Saved Games" />
       </div>
     </Main>
   );
