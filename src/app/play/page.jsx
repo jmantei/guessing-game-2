@@ -13,7 +13,11 @@ import Modal from "@/components/Modal";
 
 import LocalStorage from "@/utils/LocalStorage";
 import { validateSetInput } from "@/utils/Validation";
-import { JoinWithAnd } from "@/utils/Utilities";
+import {
+  JoinWithAnd,
+  PlayerNumArray,
+  SortPlayerNumArray,
+} from "@/utils/Utilities";
 import {
   CalculateMaxScore,
   CalculateScore,
@@ -71,26 +75,10 @@ function Page() {
   }
 
   // set player number array for displaying the guess input boxes
-  const initialPlayerArray = Array.from(Array(gameState.numberOfPlayer).keys());
-  const reorderedPlayerArray = initialPlayerArray
-    .slice(gameState.startingPlayerIndex)
-    .concat(initialPlayerArray.slice(0, gameState.startingPlayerIndex));
-  console.log(reorderedPlayerArray);
-  // define a function that reverses this process for saving the inputed data
-  function reverseReorderedArray(array, i) {
-    // convert node list to array
-    const arr = Array.from(array);
-
-    // Split the array into two parts:
-    const firstPart = arr.slice(-i);
-    const secondPart = arr.slice(0, -i);
-
-    // Combine the two parts in reverse order
-    const combinedArr = firstPart.concat(secondPart);
-
-    console.log(combinedArr);
-    return combinedArr;
-  }
+  const playerNumberArray = PlayerNumArray(
+    gameState.numberOfPlayer,
+    gameState.startingPlayerIndex
+  );
 
   return (
     <Main>
@@ -199,7 +187,7 @@ function Page() {
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
                 />
                 <div className={styles.inputBox}>
-                  {reorderedPlayerArray.map((n) => (
+                  {playerNumberArray.map((n) => (
                     <SetsInput
                       key={n}
                       playerNumber={n + 1}
@@ -223,7 +211,7 @@ function Page() {
                     // get player guesses
                     const playerGuesses = [];
                     // order inputs
-                    const inputContainers = reverseReorderedArray(
+                    const inputContainers = SortPlayerNumArray(
                       e.target.previousSibling.previousSibling.childNodes,
                       gameState.startingPlayerIndex
                     );
@@ -278,7 +266,7 @@ function Page() {
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
                 />
                 <div className={styles.inputBox}>
-                  {reorderedPlayerArray.map((n) => (
+                  {playerNumberArray.map((n) => (
                     <SetsInput
                       key={n}
                       playerNumber={n + 1}
@@ -306,7 +294,7 @@ function Page() {
                     // get player sets won
                     const playerSetsWon = [];
                     // order inputs
-                    const inputContainers = reverseReorderedArray(
+                    const inputContainers = SortPlayerNumArray(
                       e.target.previousSibling.previousSibling.childNodes,
                       gameState.startingPlayerIndex
                     );
