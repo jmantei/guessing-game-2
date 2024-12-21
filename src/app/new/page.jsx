@@ -11,6 +11,21 @@ import Button from "@/components/Button";
 import styles from "./page.module.css";
 import { useState, useEffect } from "react";
 
+const MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 function NewGame() {
   const router = useRouter();
   const [numOfPlayers, setNumOfPlayers] = useState(0);
@@ -18,25 +33,11 @@ function NewGame() {
 
   function autofillTitle(e) {
     e.preventDefault();
-    const inputEl = e.target.previousSibling;
 
+    // generate date string
     const date = new Date();
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
     const formattedDate = `${
-      months[date.getMonth()]
+      MONTHS[date.getMonth()]
     } ${date.getDate()} ${date.getFullYear()} ${date
       .getHours()
       .toString()
@@ -45,6 +46,8 @@ function NewGame() {
       .toString()
       .padStart(2, "0")}`;
 
+    // set input value to date string
+    const inputEl = e.target.previousSibling;
     inputEl.value = formattedDate;
   }
 
