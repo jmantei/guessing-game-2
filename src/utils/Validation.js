@@ -3,19 +3,19 @@ const ALPHA_NUM_REGEX = /^[a-z0-9 ]*$/i;
 const ZERO_TEN_REGEX = /^(10|[0-9])$/;
 
 /**
- * Check that all form data is valid
- * @param {string} gameType - type of game
- * @param {string} numPlayers - number of players
- * @param {string} gameTitle - title of game
- * @param {string} player1Name - name of player 1
- * @param {string} player2Name - name of player 2
- * @param {string} player3Name - name of player 3
- * @param {string} player4Name - name of player 4
- * @param {string} player5Name - name of player 5
- * @param {string} player6Name - name of player 6
- * @param {string} player7Name - name of player 7
- * @param {string} player8Name - name of player 8
- * @returns array of errors, empty array if there are no errors
+ * Check that all form data is valid.
+ * @param {String} gameType - The type of game.
+ * @param {String} numPlayers - The number of players.
+ * @param {String} gameTitle - The title of the game.
+ * @param {String} player1Name - The name of player 1.
+ * @param {String} player2Name - The name of player 2.
+ * @param {String} player3Name - The name of player 3.
+ * @param {String} player4Name - The name of player 4.
+ * @param {String} player5Name - The name of player 5.
+ * @param {String} player6Name - The name of player 6.
+ * @param {String} player7Name - The name of player 7.
+ * @param {String} player8Name - The name of player 8.
+ * @returns Array - An array of errors, empty array if there are no errors
  */
 export function validNewGameForm(
   gameType,
@@ -83,11 +83,11 @@ export function validNewGameForm(
 }
 
 /**
- * Validate individual player names
- * @param {string} name - name of player
- * @param {number} number - which player is it (numbers 1 to 8)
- * @param {string} numPlayers - how many players total
- * @returns array of errors, empty array if there are no errors
+ * Validate individual player names.
+ * @param {String} name - The name of the player.
+ * @param {Number} number - Which player it is (numbers 1 to 8).
+ * @param {String} numPlayers - How many players total.
+ * @returns Array - An array of errors, empty array if there are no errors.
  */
 function validatePlayerName(name, number, numPlayers) {
   const errors = [];
@@ -104,11 +104,11 @@ function validatePlayerName(name, number, numPlayers) {
 }
 
 /**
- * Validate the setInput fields
- * @param {bool} validateTotalSum - true if the sum of all the gueses needs to match the totalSum parameter (only for validating the sets-won inputs)
- * @param {*} totalSum - the total sum (only needed if validateTotalSum is true)
- * @param  {...string} inputs - the user inputs to be validated
- * @returns - an array of strings where each index corresponds to an input field on the page.
+ * Validate the setInput fields.
+ * @param {Bool} validateTotalSum - True if the sum of all the gueses needs to match the totalSum parameter (only for validating the sets-won inputs).
+ * @param {Number} totalSum - The total sum (only needed if validateTotalSum is true).
+ * @param  {...String} inputs - The user inputs to be validated.
+ * @returns Array - An array of strings where each index corresponds to an input field on the page.
  */
 export function validateSetInput(
   validateTotalSum = false,

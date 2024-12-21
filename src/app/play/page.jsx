@@ -15,8 +15,8 @@ import LocalStorage from "@/utils/LocalStorage";
 import { validateSetInput } from "@/utils/Validation";
 import {
   JoinWithAnd,
-  PlayerNumArray,
-  SortPlayerNumArray,
+  GenerateShiftedPlayerArray,
+  UnshiftPlayerArray,
 } from "@/utils/Utilities";
 import {
   CalculateMaxScore,
@@ -75,7 +75,7 @@ function Page() {
   }
 
   // set player number array for displaying the guess input boxes
-  const playerNumberArray = PlayerNumArray(
+  const playerNumberArray = GenerateShiftedPlayerArray(
     gameState.numberOfPlayer,
     gameState.startingPlayerIndex
   );
@@ -213,7 +213,7 @@ function Page() {
                     // get player guesses
                     const playerGuesses = [];
                     // order inputs
-                    const inputContainers = SortPlayerNumArray(
+                    const inputContainers = UnshiftPlayerArray(
                       e.target.previousSibling.previousSibling.childNodes,
                       gameState.startingPlayerIndex
                     );
@@ -299,7 +299,7 @@ function Page() {
                     // get player sets won
                     const playerSetsWon = [];
                     // order inputs
-                    const inputContainers = SortPlayerNumArray(
+                    const inputContainers = UnshiftPlayerArray(
                       e.target.previousSibling.previousSibling.childNodes,
                       gameState.startingPlayerIndex
                     );

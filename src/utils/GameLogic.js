@@ -1,10 +1,10 @@
-import { PlayerNumArray, SortArrayBasedOnStartingIndex } from "./Utilities";
+import { GenerateShiftedPlayerArray, ShiftPlayerArray } from "./Utilities";
 
 /**
  * Calculate the score for a round.
- * @param {number} guess - the guess for round.
- * @param {number} setsWon - the sets won for round.
- * @returns number - points for that round.
+ * @param {Number} guess - The guess for round.
+ * @param {Number} setsWon - The sets won for round.
+ * @returns Number - The points for that round.
  */
 export function CalculateScore(guess, setsWon) {
   // get differences between sets won and guesses
@@ -20,8 +20,8 @@ export function CalculateScore(guess, setsWon) {
 
 /**
  * Calculate the highest score that a player has.
- * @param {object} playerPoints - a object of array with each players' points.
- * @returns number - the current highest score that any player has.
+ * @param {Object} playerPoints - An object of arrays with each players' points.
+ * @returns Number - the current highest score that any player has.
  */
 export function CalculateMaxScore(playerPoints) {
   // initialize array
@@ -67,7 +67,7 @@ export function CalculateWinner(playerPoints, playerNames) {
  * @param {Number} startingIndex - The index of the player starting the round.
  * @param {Number} round - The current round.
  * @param {Number} numberOfPlayers - The number of players.
- * @returns - The index of the player starting the round.
+ * @returns Number - The index of the player starting the round.
  */
 export function CalculateStartingPlayer(
   guessesObj,
@@ -86,10 +86,7 @@ export function CalculateStartingPlayer(
   console.log("guessesArray: ", guessesArray);
 
   // reorder the array based on who guesses first
-  const sortedArray = SortArrayBasedOnStartingIndex(
-    guessesArray,
-    startingIndex
-  );
+  const sortedArray = ShiftPlayerArray(guessesArray, startingIndex);
 
   console.log("sortedArray: ", sortedArray);
 
@@ -102,9 +99,12 @@ export function CalculateStartingPlayer(
   console.log("numplayers", numberOfPlayers);
   console.log(
     "roundstartindex: ",
-    PlayerNumArray(numberOfPlayers, startingIndex)[maxIndex]
+    GenerateShiftedPlayerArray(numberOfPlayers, startingIndex)[maxIndex]
   );
-  console.log("Indexes: ", PlayerNumArray(numberOfPlayers, startingIndex));
+  console.log(
+    "Indexes: ",
+    GenerateShiftedPlayerArray(numberOfPlayers, startingIndex)
+  );
   // return the index based on the sorted
-  return PlayerNumArray(numberOfPlayers, startingIndex)[maxIndex];
+  return GenerateShiftedPlayerArray(numberOfPlayers, startingIndex)[maxIndex];
 }

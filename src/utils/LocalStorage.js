@@ -1,6 +1,6 @@
 /**
- * check if local storage is available
- * @returns bool - true if local storage is available, false if not
+ * Check if local storage is available.
+ * @returns Bool - True if local storage is available, false if not.
  */
 function exists() {
   // check if code is running in the browser
@@ -23,7 +23,7 @@ function exists() {
 }
 
 /**
- * create app object if it doesn't exists
+ * Create app object if it doesn't exists.
  */
 function init() {
   // check if code is running in the browser
@@ -44,7 +44,7 @@ function init() {
 }
 
 /**
- * reset localstorage data
+ * Reset localstorage data.
  */
 function reset() {
   // check if code is running in the browser
@@ -56,8 +56,8 @@ function reset() {
 }
 
 /**
- * Save game title to app object in local storage
- * @param {string} gameTitle - title of game to be saved
+ * Save game title to app object in local storage.
+ * @param {String} gameTitle - The title of game to be saved.
  */
 function addGameTitle(gameTitle) {
   // check if code is running in the browser
@@ -72,18 +72,18 @@ function addGameTitle(gameTitle) {
 }
 
 /**
- * Save game data object to local storage
- * @param {string} gameTitle - title of game
- * @param {string} gameType - type of game
- * @param {string} numPlayers - number of players
- * @param {string} player1 - name of player 1
- * @param {string} player2 - name of player 2
- * @param {string} player3 - name of player 3
- * @param {string} player4 - name of player 4
- * @param {string} player5 - name of player 5
- * @param {string} player6 - name of player 6
- * @param {string} player7 - name of player 7
- * @param {string} player8 - name of player 8
+ * Save game data object to local storage.
+ * @param {String} gameTitle - The title of game.
+ * @param {String} gameType - The type of game.
+ * @param {String} numPlayers - The number of players.
+ * @param {String} player1 - The name of player 1.
+ * @param {String} player2 - The name of player 2.
+ * @param {String} player3 - The name of player 3.
+ * @param {String} player4 - The name of player 4.
+ * @param {String} player5 - The name of player 5.
+ * @param {String} player6 - The name of player 6.
+ * @param {String} player7 - The name of player 7.
+ * @param {String} player8 - The name of player 8.
  */
 function addGameData(
   gameTitle,
@@ -155,8 +155,8 @@ function addGameData(
 }
 
 /**
- * Remove game title from app object in local storage
- * @param {string} gameTitle - title of game to be saved
+ * Remove game title from app object in local storage.
+ * @param {String} gameTitle - The title of game to be saved.
  */
 function removeGameTitle(gameTitle) {
   // check if code is running in the browser
@@ -171,8 +171,8 @@ function removeGameTitle(gameTitle) {
 }
 
 /**
- * Remove game data object from local storage
- * @param {string} gameTitle - title of game
+ * Remove game data object from local storage.
+ * @param {String} gameTitle - The title of game.
  */
 function removeGameData(gameTitle) {
   // check if code is running in the browser
@@ -183,9 +183,9 @@ function removeGameData(gameTitle) {
 }
 
 /**
- * Check if the game already exists in local storage
- * @param {string} gameTitle - title of the game
- * @returns bool - true if it does exist, false if not
+ * Check if the game already exists in local storage.
+ * @param {String} gameTitle - The title of the game.
+ * @returns Bool - True if it does exist, false if not.
  */
 function gameExists(gameTitle) {
   // check if code is running in the browser
@@ -199,9 +199,9 @@ function gameExists(gameTitle) {
 }
 
 /**
- * Get the game data from local storage based on game title
- * @param {string} gameTitle
- * @returns Returns object of gameData or null of no matching game is found.
+ * Get the game data from local storage based on game title.
+ * @param {String} gameTitle
+ * @returns Object | Null - An object of gameData or null of no matching game is found.
  */
 function getGameData(gameTitle) {
   // check if code is running in the browser
@@ -215,8 +215,8 @@ function getGameData(gameTitle) {
 }
 
 /**
- * Get game titles from local storage
- * @returns returns the app data object or null if none exists in local storage
+ * Get game titles from local storage.
+ * @returns Object | Null - The app data object or null if none exists in local storage.
  */
 function getAppData() {
   // check if code is running in the browser
