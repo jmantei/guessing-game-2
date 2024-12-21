@@ -70,6 +70,28 @@ function Page() {
       tablecols = 0;
   }
 
+  // set player number array for displaying the guess input boxes
+  const initialPlayerArray = Array.from(Array(gameState.numberOfPlayer).keys());
+  const reorderedPlayerArray = initialPlayerArray
+    .slice(gameState.startingPlayerIndex)
+    .concat(initialPlayerArray.slice(0, gameState.startingPlayerIndex));
+  console.log(reorderedPlayerArray);
+  // define a function that reverses this process for saving the inputed data
+  function reverseReorderedArray(array, i) {
+    // convert node list to array
+    const arr = Array.from(array);
+
+    // Split the array into two parts:
+    const firstPart = arr.slice(-i);
+    const secondPart = arr.slice(0, -i);
+
+    // Combine the two parts in reverse order
+    const combinedArr = firstPart.concat(secondPart);
+
+    console.log(combinedArr);
+    return combinedArr;
+  }
+
   return (
     <Main>
       <div className={styles.page}>
@@ -177,17 +199,15 @@ function Page() {
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
                 />
                 <div className={styles.inputBox}>
-                  {Array.from(Array(gameState.numberOfPlayer).keys()).map(
-                    (n) => (
-                      <SetsInput
-                        key={n}
-                        playerNumber={n + 1}
-                        playerName={gameState.playerNames[n]}
-                        showError={setInputErrors[n] !== ""}
-                        guessOnly
-                      />
-                    )
-                  )}
+                  {reorderedPlayerArray.map((n) => (
+                    <SetsInput
+                      key={n}
+                      playerNumber={n + 1}
+                      playerName={gameState.playerNames[n]}
+                      showError={setInputErrors[n] !== ""}
+                      guessOnly
+                    />
+                  ))}
                 </div>
                 {/* error output */}
                 <p className={styles.setInputError}>
@@ -202,13 +222,17 @@ function Page() {
                   onClick={(e) => {
                     // get player guesses
                     const playerGuesses = [];
-                    e.target.previousSibling.previousSibling.childNodes.forEach(
-                      (inputElement) => {
-                        playerGuesses.push(
-                          inputElement.childNodes[1].value.trim()
-                        );
-                      }
+                    // order inputs
+                    const inputContainers = reverseReorderedArray(
+                      e.target.previousSibling.previousSibling.childNodes,
+                      gameState.startingPlayerIndex
                     );
+                    console.log("guesses: ", inputContainers);
+                    inputContainers.forEach((inputElement) => {
+                      playerGuesses.push(
+                        inputElement.childNodes[1].value.trim()
+                      );
+                    });
                     console.log(playerGuesses);
 
                     // validate player guesses
@@ -254,21 +278,19 @@ function Page() {
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
                 />
                 <div className={styles.inputBox}>
-                  {Array.from(Array(gameState.numberOfPlayer).keys()).map(
-                    (n) => (
-                      <SetsInput
-                        key={n}
-                        playerNumber={n + 1}
-                        playerName={gameState.playerNames[n]}
-                        showError={setInputErrors[n] !== ""}
-                        guessAmount={
-                          gameState.game.guesses[`player${n + 1}`][
-                            gameState.round - 1
-                          ]
-                        }
-                      />
-                    )
-                  )}
+                  {reorderedPlayerArray.map((n) => (
+                    <SetsInput
+                      key={n}
+                      playerNumber={n + 1}
+                      playerName={gameState.playerNames[n]}
+                      showError={setInputErrors[n] !== ""}
+                      guessAmount={
+                        gameState.game.guesses[`player${n + 1}`][
+                          gameState.round - 1
+                        ]
+                      }
+                    />
+                  ))}
                 </div>
                 {/* error output */}
                 <p className={styles.setInputError}>
@@ -283,13 +305,17 @@ function Page() {
                   onClick={(e) => {
                     // get player sets won
                     const playerSetsWon = [];
-                    e.target.previousSibling.previousSibling.childNodes.forEach(
-                      (inputElement) => {
-                        playerSetsWon.push(
-                          inputElement.childNodes[1].value.trim()
-                        );
-                      }
+                    // order inputs
+                    const inputContainers = reverseReorderedArray(
+                      e.target.previousSibling.previousSibling.childNodes,
+                      gameState.startingPlayerIndex
                     );
+                    console.log("sets-won: ", inputContainers);
+                    inputContainers.forEach((inputElement) => {
+                      playerSetsWon.push(
+                        inputElement.childNodes[1].value.trim()
+                      );
+                    });
                     console.log(playerSetsWon);
 
                     // validate player sets won
