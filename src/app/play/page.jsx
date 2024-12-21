@@ -185,6 +185,7 @@ function Page() {
                   cards={tablecols[gameState.round - 1]}
                   playerNames={gameState.playerNames}
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
+                  guessesFirst
                 />
                 <div className={styles.inputBox}>
                   {playerNumberArray.map((n) => (
@@ -264,6 +265,8 @@ function Page() {
                   cards={tablecols[gameState.round - 1]}
                   playerNames={gameState.playerNames}
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
+                  startsRound
+                  playerGuesses={gameState.game.guesses}
                 />
                 <div className={styles.inputBox}>
                   {playerNumberArray.map((n) => (

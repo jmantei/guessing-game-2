@@ -41,6 +41,10 @@ export function PlayerNumArray(numberOfPlayers, startingIndex) {
   return orderedArray;
 }
 
+export function SortArrayBasedOnStartingIndex(array, startingIndex) {
+  return array.slice(startingIndex).concat(array.slice(0, startingIndex));
+}
+
 /**
  * Sort an array of player numbers that are rearanged based on the starting index. [3,4,5,1,2] => [1,2,3,4,5]
  * @param {Array | NodeList} array - An array or Node list of elements to be sorted

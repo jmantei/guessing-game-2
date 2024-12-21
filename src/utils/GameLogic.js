@@ -1,3 +1,5 @@
+import { PlayerNumArray, SortArrayBasedOnStartingIndex } from "./Utilities";
+
 /**
  * Calculate the score for a round.
  * @param {number} guess - the guess for round.
@@ -57,4 +59,43 @@ export function CalculateWinner(playerPoints, playerNames) {
   console.log(winnerIndexes.map((index) => playerNames[index]));
 
   return winnerIndexes.map((index) => playerNames[index]);
+}
+
+/**
+ * Calculate the index of the starting player based on the players' guesses.
+ * @param {Object} guessesObj - An object storing all of the players' guesses.
+ * @param {Number} startingIndex - The index of the player starting the round.
+ * @param {Number} round - The current round.
+ * @param {Number} numberOfPlayers - The number of players.
+ * @returns - The index of the player starting the round.
+ */
+export function CalculateStartingPlayer(
+  guessesObj,
+  startingIndex,
+  round,
+  numberOfPlayers
+) {
+  // convert guesses data object to an array of guesses
+  const guessesArray = [];
+  for (const player in guessesObj) {
+    // add guess to array if it exists
+    if (guessesObj[player].length > 0)
+      guessesArray.push(guessesObj[player][round - 1]);
+  }
+
+  // reorder the array based on who guesses first
+  const sortedArray = SortArrayBasedOnStartingIndex(
+    guessesArray,
+    startingIndex
+  );
+
+  console.log(sortedArray);
+
+  // determine index of first occurence of the highest guess
+  const maxIndex = sortedArray.reduce((maxIdx, currentValue, currentIdx) => {
+    return currentValue > sortedArray[maxIdx] ? currentIdx : maxIdx;
+  }, 0);
+
+  // return the index based on the sorted
+  return PlayerNumArray(numberOfPlayers, startingIndex)[maxIndex];
 }
