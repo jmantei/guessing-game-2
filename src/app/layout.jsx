@@ -19,12 +19,12 @@ export const metadata = {
   openGraph: {
     title: "Guessing Game 2",
     description: "Keeping score for the fun family card game.",
-    url: "https://guessinggame2.webthesite.com",
+    url: "https://guessing-game-2-omega.vercel.app",
     siteName: "Guessing Game 2",
     type: "website",
     images: [
       {
-        url: "https://guessinggame2.webthesite.com/logo.png",
+        url: "https://guessing-game-2-omega.vercel.app/logo.png",
         width: 1114,
         height: 512,
         alt: "Guessing Game Logo",
