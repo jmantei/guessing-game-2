@@ -91,7 +91,7 @@ function Page() {
                 {/* Display table column headers */}
                 {Array.from({ length: tablecols.length + 1 }, (_, i) => (
                   <th key={i} data-cell={i == 0 ? "name" : `round-${i}`}>
-                    {i == 0 ? "Round" : tablecols[i - 1]}
+                    {i == 0 ? "Cards" : tablecols[i - 1]}
                   </th>
                 ))}
               </tr>
