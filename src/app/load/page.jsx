@@ -21,7 +21,7 @@ function Page() {
 
   const appData = LocalStorage.getAppData();
   let games = [];
-  if (appData) games = appData.games;
+  if (appData) games = appData.games.reverse(); // reverse games list to show newest game first
 
   function handleDeleteGame(game) {
     // delete game
