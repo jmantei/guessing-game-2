@@ -184,6 +184,7 @@ function Page() {
                   round={gameState.round}
                   cards={tablecols[gameState.round - 1]}
                   playerNames={gameState.playerNames}
+                  numberOfPlayers={gameState.numberOfPlayer}
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
                   guessesFirst
                 />
@@ -264,6 +265,7 @@ function Page() {
                   round={gameState.round}
                   cards={tablecols[gameState.round - 1]}
                   playerNames={gameState.playerNames}
+                  numberOfPlayers={gameState.numberOfPlayer}
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
                   startsRound
                   playerGuesses={gameState.game.guesses}

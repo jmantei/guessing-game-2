@@ -5,6 +5,7 @@ function RoundInfo({
   round,
   cards,
   playerNames,
+  numberOfPlayers,
   playerGuessingFirstIndex,
   guessesFirst = false,
   startsRound = false,
@@ -24,7 +25,7 @@ function RoundInfo({
               playerGuesses,
               playerGuessingFirstIndex,
               round,
-              playerNames.length
+              numberOfPlayers
             )
           ]
         } starts round`}</p>

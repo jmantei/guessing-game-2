@@ -83,19 +83,28 @@ export function CalculateStartingPlayer(
       guessesArray.push(guessesObj[player][round - 1]);
   }
 
+  console.log("guessesArray: ", guessesArray);
+
   // reorder the array based on who guesses first
   const sortedArray = SortArrayBasedOnStartingIndex(
     guessesArray,
     startingIndex
   );
 
-  console.log(sortedArray);
+  console.log("sortedArray: ", sortedArray);
 
   // determine index of first occurence of the highest guess
   const maxIndex = sortedArray.reduce((maxIdx, currentValue, currentIdx) => {
     return currentValue > sortedArray[maxIdx] ? currentIdx : maxIdx;
   }, 0);
 
+  // index in the sorted array but i want to know what player is at that index
+  console.log("numplayers", numberOfPlayers);
+  console.log(
+    "roundstartindex: ",
+    PlayerNumArray(numberOfPlayers, startingIndex)[maxIndex]
+  );
+  console.log("Indexes: ", PlayerNumArray(numberOfPlayers, startingIndex));
   // return the index based on the sorted
   return PlayerNumArray(numberOfPlayers, startingIndex)[maxIndex];
 }
