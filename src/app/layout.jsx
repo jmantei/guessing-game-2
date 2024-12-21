@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import Head from "next/head";
 
 import "./reset.css";
 import "./globals.css";
@@ -17,25 +16,26 @@ const inter = localFont({
 export const metadata = {
   title: "Guessing Game 2",
   description: "Keeping score for the fun family card game.",
+  openGraph: {
+    title: "Guessing Game 2",
+    description: "Keeping score for the fun family card game.",
+    url: "https://guessinggame2.webthesite.com",
+    siteName: "Guessing Game 2",
+    type: "website",
+    images: [
+      {
+        url: "https://guessinggame2.webthesite.com/logo.png",
+        width: 1114,
+        height: 512,
+        alt: "Guessing Game Logo",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <meta property="og:title" content="Guessing Game 2" />
-        <meta
-          property="og:description"
-          content="Keeping score for the fun family card game."
-        />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:url"
-          content="https://guessinggame2.webthesite.com"
-        />
-        <meta property="og:site_name" content="Guessing Game 2" />
-        <meta name="twitter:card" content="Guessing Game 2" />
-      </Head>
       <body className={`${inter.className}`}>
         <Suspense fallback={<Spinner />}>{children}</Suspense>
       </body>

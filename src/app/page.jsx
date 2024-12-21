@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import LocalStorage from "@/utils/LocalStorage";
-import Logo from "@/images/logo.png";
+// import Logo from "@/images/logo.png";
 import Button from "@/components/Button";
 import Main from "@/layouts/Main";
 
@@ -24,7 +24,9 @@ export default function Home() {
         {localStorageExists ? (
           <>
             <Image
-              src={Logo}
+              src="/logo.png"
+              width={1114}
+              height={512}
               alt="Guessing Game Logo"
               className={styles.logo}
             />
