@@ -24,7 +24,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://playguessinggame.com/",
+        url: "https://playguessinggame.com/logo.png",
         width: 1114,
         height: 512,
         alt: "Guessing Game Logo",
