@@ -77,19 +77,21 @@ function Page() {
           <h2>No games found</h2>
         )}
         <Button type="secondary" text="Back to Main Menu" navlink href="/" />
-        <Button
-          text="Clear All Saved Games"
-          className={styles.deleteAllButton}
-          onClick={() => {
-            // check if no games have been saved
-            if (LocalStorage.getAppData().games.length === 0) {
-              setNoGamesToDelete(true);
-              return;
-            }
+        {games.length ? (
+          <Button
+            text="Clear All Saved Games"
+            className={styles.deleteAllButton}
+            onClick={() => {
+              // check if no games have been saved
+              if (LocalStorage.getAppData().games.length === 0) {
+                setNoGamesToDelete(true);
+                return;
+              }
 
-            setDeleteAllGames(true);
-          }}
-        />
+              setDeleteAllGames(true);
+            }}
+          />
+        ) : null}
       </div>
       {gameToDelete ? (
         <Modal
