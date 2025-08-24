@@ -1,4 +1,8 @@
 import { CalculateStartingPlayer } from "@/utils/GameLogic";
+
+import IconButton from "./IconButton";
+import FullscreenOpenIcon from "./FullscreenOpenIcon";
+
 import styles from "./RoundInfo.module.css";
 
 function RoundInfo({
@@ -11,6 +15,7 @@ function RoundInfo({
   startsRound = false,
   playerGuesses = {},
   fullscreen = false,
+  setRoundDisplayOpen = () => {},
 }) {
   return (
     <div className={styles.roundInfoBox}>
@@ -39,6 +44,14 @@ function RoundInfo({
           }
           <span> starts round</span>
         </p>
+      )}
+      {fullscreen || (
+        <IconButton
+          className={styles.fullscreenButton}
+          onClick={() => setRoundDisplayOpen(true)}
+        >
+          <FullscreenOpenIcon />
+        </IconButton>
       )}
     </div>
   );

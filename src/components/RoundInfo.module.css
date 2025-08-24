@@ -1,5 +1,6 @@
 .roundInfoBox {
   margin-bottom: 1rem;
+  position: relative;
 }
 
 .roundInfoBox h2 {
@@ -50,4 +51,10 @@
 .playerDisplay span {
   color: var(--black);
   font-size: 2rem;
+}
+
+.fullscreenButton {
+  position: absolute;
+  top: 0;
+  right: -3rem;
 }

@@ -182,10 +182,6 @@ function Page() {
             {/* submit guesses */}
             {gameState.state == "guesses" ? (
               <>
-                <Button
-                  text="Fullscreen"
-                  onClick={() => setRoundDisplayOpen(true)}
-                />
                 <RoundInfo
                   round={gameState.round}
                   cards={tablecols[gameState.round - 1]}
@@ -193,6 +189,7 @@ function Page() {
                   numberOfPlayers={gameState.numberOfPlayer}
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
                   guessesFirst
+                  setRoundDisplayOpen={setRoundDisplayOpen}
                 />
                 <div className={styles.inputBox}>
                   {playerNumberArray.map((n) => (
@@ -267,10 +264,6 @@ function Page() {
             {/* submit sets won */}
             {gameState.state == "sets-won" ? (
               <>
-                <Button
-                  text="Fullscreen"
-                  onClick={() => setRoundDisplayOpen(true)}
-                />
                 <RoundInfo
                   round={gameState.round}
                   cards={tablecols[gameState.round - 1]}
@@ -279,6 +272,7 @@ function Page() {
                   playerGuessingFirstIndex={gameState.startingPlayerIndex}
                   startsRound
                   playerGuesses={gameState.game.guesses}
+                  setRoundDisplayOpen={setRoundDisplayOpen}
                 />
                 <div className={styles.inputBox}>
                   {playerNumberArray.map((n) => (

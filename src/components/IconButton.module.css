@@ -1,0 +1,17 @@
+.button {
+  background-color: var(--blue);
+  padding: 0.1rem;
+  border-radius: 0.3rem;
+  border: 0.25rem transparent solid;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button svg path {
+  fill: var(--white);
+}
