@@ -106,3 +106,9 @@
   align-items: center;
   gap: 3rem;
 }
+
+.closeFullscreenButton {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}

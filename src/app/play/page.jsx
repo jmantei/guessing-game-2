@@ -10,6 +10,8 @@ import Button from "@/components/Button";
 import RoundInfo from "@/components/RoundInfo";
 import SetsInput from "@/components/SetsInput";
 import Modal from "@/components/Modal";
+import IconButton from "@/components/IconButton";
+import FullscreenCloseIcon from "@/components/FullscreenCloseIcon";
 
 import LocalStorage from "@/utils/LocalStorage";
 import { validateSetInput } from "@/utils/Validation";
@@ -418,20 +420,12 @@ function Page() {
               fullscreen
             />
           )}
-          <Button
-            type="primary"
-            text="Back"
-            onClick={() => {
-              setRoundDisplayOpen(false);
-            }}
-          />
-          <Button
-            type="secondary"
-            text="Flip"
-            onClick={() => {
-              console.log("flip");
-            }}
-          />
+          <IconButton
+            className={styles.closeFullscreenButton}
+            onClick={() => setRoundDisplayOpen(false)}
+          >
+            <FullscreenCloseIcon />
+          </IconButton>
         </div>
       )}
     </Main>
