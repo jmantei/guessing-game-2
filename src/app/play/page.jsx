@@ -29,6 +29,8 @@ import styles from "./page.module.css";
 function Page() {
   // modal state for returning to main menu
   const [exitModalOpen, setExitModalOpen] = useState(false);
+  // fullscreen round display
+  const [roundDisplayOpen, setRoundDisplayOpen] = useState(false);
   // initialize input error array
   const [setInputErrors, setSetInputErrors] = useState([
     "",
@@ -180,6 +182,10 @@ function Page() {
             {/* submit guesses */}
             {gameState.state == "guesses" ? (
               <>
+                <Button
+                  text="Fullscreen"
+                  onClick={() => setRoundDisplayOpen(true)}
+                />
                 <RoundInfo
                   round={gameState.round}
                   cards={tablecols[gameState.round - 1]}
@@ -261,6 +267,10 @@ function Page() {
             {/* submit sets won */}
             {gameState.state == "sets-won" ? (
               <>
+                <Button
+                  text="Fullscreen"
+                  onClick={() => setRoundDisplayOpen(true)}
+                />
                 <RoundInfo
                   round={gameState.round}
                   cards={tablecols[gameState.round - 1]}
@@ -389,6 +399,47 @@ function Page() {
           onModalClose={() => setExitModalOpen(false)}
         />
       ) : null}
+
+      {roundDisplayOpen && (
+        <div className={styles.roundDisplay}>
+          {gameState.state == "sets-won" ? (
+            <RoundInfo
+              round={gameState.round}
+              cards={tablecols[gameState.round - 1]}
+              playerNames={gameState.playerNames}
+              numberOfPlayers={gameState.numberOfPlayer}
+              playerGuessingFirstIndex={gameState.startingPlayerIndex}
+              startsRound
+              playerGuesses={gameState.game.guesses}
+              fullscreen
+            />
+          ) : (
+            <RoundInfo
+              round={gameState.round}
+              cards={tablecols[gameState.round - 1]}
+              playerNames={gameState.playerNames}
+              numberOfPlayers={gameState.numberOfPlayer}
+              playerGuessingFirstIndex={gameState.startingPlayerIndex}
+              guessesFirst
+              fullscreen
+            />
+          )}
+          <Button
+            type="primary"
+            text="Back"
+            onClick={() => {
+              setRoundDisplayOpen(false);
+            }}
+          />
+          <Button
+            type="secondary"
+            text="Flip"
+            onClick={() => {
+              console.log("flip");
+            }}
+          />
+        </div>
+      )}
     </Main>
   );
 }

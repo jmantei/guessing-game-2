@@ -10,25 +10,35 @@ function RoundInfo({
   guessesFirst = false,
   startsRound = false,
   playerGuesses = {},
+  fullscreen = false,
 }) {
   return (
     <div className={styles.roundInfoBox}>
-      <h2>{`Round ${round}`}</h2>
-      <p>{`${cards} Card${cards === 1 ? "" : "s"}`}</p>
+      {fullscreen || <h2>{`Round ${round}`}</h2>}
+      <p className={fullscreen ? styles.cardsDisplay : ""}>
+        {cards}
+        <span>{` card${cards === 1 ? "" : "s"}`}</span>
+      </p>
       {guessesFirst && (
-        <p>{`${playerNames[playerGuessingFirstIndex]} guesses first`}</p>
+        <p className={fullscreen ? styles.playerDisplay : ""}>
+          {playerNames[playerGuessingFirstIndex]}
+          <span> guesses first</span>
+        </p>
       )}
       {startsRound && (
-        <p>{`${
-          playerNames[
-            CalculateStartingPlayer(
-              playerGuesses,
-              playerGuessingFirstIndex,
-              round,
-              numberOfPlayers
-            )
-          ]
-        } starts round`}</p>
+        <p className={fullscreen ? styles.playerDisplay : ""}>
+          {
+            playerNames[
+              CalculateStartingPlayer(
+                playerGuesses,
+                playerGuessingFirstIndex,
+                round,
+                numberOfPlayers
+              )
+            ]
+          }
+          <span> starts round</span>
+        </p>
       )}
     </div>
   );
