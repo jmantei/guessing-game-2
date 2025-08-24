@@ -3,6 +3,7 @@
   padding: 0.1rem;
   border-radius: 0.3rem;
   border: 0.25rem transparent solid;
+  outline: var(--white) 0.1rem solid;
   cursor: pointer;
   width: 2rem;
   height: 2rem;
