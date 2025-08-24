@@ -11,8 +11,8 @@ import RoundInfo from "@/components/RoundInfo";
 import SetsInput from "@/components/SetsInput";
 import Modal from "@/components/Modal";
 import IconButton from "@/components/IconButton";
-import FullscreenCloseIcon from "@/components/FullscreenCloseIcon";
-import FlipVerticalIcon from "@/components/FlipVerticalIcon";
+import FullscreenCloseIcon from "@/icons/FullscreenCloseIcon";
+import FlipVerticalIcon from "@/icons/FlipVerticalIcon";
 
 import LocalStorage from "@/utils/LocalStorage";
 import { validateSetInput } from "@/utils/Validation";

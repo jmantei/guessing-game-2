@@ -1,7 +1,7 @@
 import { CalculateStartingPlayer } from "@/utils/GameLogic";
 
-import IconButton from "./IconButton";
-import FullscreenOpenIcon from "./FullscreenOpenIcon";
+import IconButton from "@/components/IconButton";
+import FullscreenOpenIcon from "@/icons/FullscreenOpenIcon";
 
 import styles from "./RoundInfo.module.css";
 
