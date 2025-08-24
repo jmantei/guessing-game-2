@@ -15,10 +15,15 @@ function RoundInfo({
   startsRound = false,
   playerGuesses = {},
   fullscreen = false,
+  flipHorizontal = false,
   setRoundDisplayOpen = () => {},
 }) {
   return (
-    <div className={styles.roundInfoBox}>
+    <div
+      className={`${styles.roundInfoBox} ${
+        flipHorizontal ? styles.flipHorizontal : ""
+      }`}
+    >
       {fullscreen || <h2>{`Round ${round}`}</h2>}
       <p className={fullscreen ? styles.cardsDisplay : ""}>
         {cards}

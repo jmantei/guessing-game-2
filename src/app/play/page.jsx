@@ -34,6 +34,8 @@ function Page() {
   const [exitModalOpen, setExitModalOpen] = useState(false);
   // fullscreen round display
   const [roundDisplayOpen, setRoundDisplayOpen] = useState(false);
+  // flip fullscreen round display
+  const [roundDisplayFlip, setRoundDisplayFlip] = useState(false);
   // initialize input error array
   const [setInputErrors, setSetInputErrors] = useState([
     "",
@@ -409,6 +411,7 @@ function Page() {
               startsRound
               playerGuesses={gameState.game.guesses}
               fullscreen
+              flipHorizontal={roundDisplayFlip}
             />
           ) : (
             <RoundInfo
@@ -419,6 +422,7 @@ function Page() {
               playerGuessingFirstIndex={gameState.startingPlayerIndex}
               guessesFirst
               fullscreen
+              flipHorizontal={roundDisplayFlip}
             />
           )}
           <div className={styles.fullscreenButtonContainer}>
@@ -428,7 +432,7 @@ function Page() {
             <IconButton
               type="secondary"
               onClick={() => {
-                console.log("flip");
+                setRoundDisplayFlip((cur) => !cur);
               }}
             >
               <FlipVerticalIcon />

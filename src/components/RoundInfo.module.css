@@ -3,6 +3,10 @@
   position: relative;
 }
 
+.roundInfoBox.flipHorizontal {
+  transform: rotate(180deg);
+}
+
 .roundInfoBox h2 {
   color: var(--blue);
   font-size: 1.5rem;
