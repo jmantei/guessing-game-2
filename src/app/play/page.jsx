@@ -426,6 +426,7 @@ function Page() {
               <FullscreenCloseIcon />
             </IconButton>
             <IconButton
+              type="secondary"
               onClick={() => {
                 console.log("flip");
               }}

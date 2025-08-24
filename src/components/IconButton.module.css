@@ -1,4 +1,4 @@
-.button {
+.primary {
   background-color: var(--blue);
   padding: 0.1rem;
   border-radius: 0.3rem;
@@ -12,11 +12,21 @@
   justify-content: center;
 }
 
-.button svg {
+.secondary {
+  background-color: var(--white);
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.primary svg {
   width: 100%;
   height: 100%;
 }
 
-.button svg path {
+.primary svg path {
   fill: var(--white);
+}
+
+.secondary svg path {
+  fill: var(--blue);
 }

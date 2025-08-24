@@ -8,9 +8,15 @@ function IconButton({
   onClick = () => {
     console.log("Clicked");
   },
+  type = "primary",
 }) {
   return (
-    <button className={`${styles.button} ${className}`} onClick={onClick}>
+    <button
+      className={`${styles.primary} ${
+        type === "secondary" ? styles.secondary : ""
+      } ${className}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
